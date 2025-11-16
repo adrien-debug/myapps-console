@@ -1861,6 +1861,30 @@
                         }
                     ]
                 }
+            },
+            
+            // <i class="icon-settings"></i> USER MANAGEMENT (MyApps only)
+            {
+                id: 'user-management',
+                projectType: 'desktop',
+                icon: '<i class="icon-settings"></i>',
+                title: 'User Management',
+                description: 'Identity center for managing users and access control',
+                status: 'active',
+                category: 'system',
+                progress: 100,
+                date: '16 Nov 2025',
+                cockpitOnly: 'myapps',
+                content: {
+                    kicker: '<i class="icon-settings"></i> System',
+                    sections: [
+                        {
+                            id: 'users-list',
+                            title: 'Users Management',
+                            content: '<div id="usersManagementContent"></div>'
+                        }
+                    ]
+                }
             }
         ];
         
@@ -1882,9 +1906,22 @@
             
             if (USERS[user] && USERS[user] === pin) {
                 console.log('<i class="icon-done"></i> LOGIN SUCCESS');
-                currentUser = user;
+                
+                // Create structured user object
+                currentUser = {
+                    id: `user-${Date.now()}`,
+                    name: user,
+                    role: 'owner',
+                    loginTime: new Date().toISOString(),
+                    cockpit: ACTIVE_COCKPIT
+                };
+                
                 errorDiv.classList.remove('show');
                 document.getElementById('userName').textContent = user;
+                
+                // Save session immediately
+                CockpitDataManager.saveCurrentData();
+                
                 logAction('SESSION_START', `User ${user} logged in`);
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('mainContainer').classList.add('active');
@@ -1898,9 +1935,16 @@
 
         function handleLogout() {
             if (confirm('Disconnect from console?')) {
-                logAction('SESSION_END', `User ${currentUser} logged out`);
+                logAction('SESSION_END', `User ${currentUser.name || currentUser} logged out`);
+                
+                // Clear session
                 currentUser = null;
                 currentPage = 'dashboard';
+                
+                // Save state
+                CockpitDataManager.saveCurrentData();
+                
+                // Return to login
                 document.getElementById('loginPage').style.display = 'flex';
                 document.getElementById('mainContainer').classList.remove('active');
                 document.getElementById('loginForm').reset();
@@ -1929,9 +1973,19 @@
             const grid = document.getElementById('pagesGrid');
             grid.innerHTML = '';
             
+            // Filter pages based on cockpitOnly property
+            const availablePages = pagesData.filter(p => {
+                // If page has cockpitOnly property, show only in that cockpit
+                if (p.cockpitOnly) {
+                    return p.cockpitOnly === ACTIVE_COCKPIT;
+                }
+                // Otherwise, show in all cockpits
+                return true;
+            });
+            
             // Separate by project type
-            const mobileProjects = pagesData.filter(p => p.projectType === 'mobile' || !p.projectType);
-            const desktopProjects = pagesData.filter(p => p.projectType === 'desktop');
+            const mobileProjects = availablePages.filter(p => p.projectType === 'mobile' || !p.projectType);
+            const desktopProjects = availablePages.filter(p => p.projectType === 'desktop');
             
             // MOBILE APPS SECTION
             if (mobileProjects.length > 0) {
@@ -2006,6 +2060,9 @@
                     </div>
                     <span class="page-card-date">${page.date}</span>
                 </div>
+                <button onclick="event.stopPropagation(); openSubDashboard('${page.id}', '${page.title.replace(/'/g, "\\'")}');" style="width: 100%; margin-top: 12px; padding: 10px 16px; background: transparent; border: 1px solid var(--or-luxe); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;">
+                    Accéder au dashboard →
+                </button>
             `;
             
             return card;
@@ -2137,6 +2194,11 @@
             
             if (page.id === 'app-splash') {
                 renderSplashPageDetail(page);
+                return;
+            }
+            
+            if (page.id === 'user-management') {
+                renderUserManagementPage(page);
                 return;
             }
             
@@ -2403,6 +2465,11 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             console.log('ORDERGATE Premium Console - Initialized');
+            
+            // Initialize session after cockpit is loaded
+            setTimeout(() => {
+                initializeSession();
+            }, 100);
         });
 
         // Notification System
@@ -3573,6 +3640,240 @@ async function loadGitHubFiles() {
             logAction('COMMENT', `Comment on Menu page: "${text.substring(0, 30)}..."`);
         }
 
+        // ═══════════════════════════════════════════════════════════
+        // USER MANAGEMENT SYSTEM
+        // ═══════════════════════════════════════════════════════════
+        
+        // Initialize usersData structure
+        if (!window.usersData) {
+            window.usersData = {};
+        }
+        
+        function renderUserManagementPage(page) {
+            const container = document.getElementById('pageContentView');
+            
+            container.innerHTML = `
+                <div class="page-header">
+                    <span class="page-kicker">${page.content.kicker}</span>
+                    <h1 class="page-title">${page.title}</h1>
+                    <p class="page-description">${page.description}</p>
+                </div>
+                
+                <div class="action-bar">
+                    <button class="btn-secondary" onclick="navigateToPage('dashboard')">
+                        Back to Dashboard
+                    </button>
+                    <button class="btn-primary" onclick="showAddUserModal()">
+                        Add New User
+                    </button>
+                </div>
+                
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Users List</h2>
+                    </div>
+                    <div id="usersTableContainer" style="margin-top: 16px;">
+                        <!-- Users table will be rendered here -->
+                    </div>
+                </div>
+            `;
+            
+            renderUsersTable();
+        }
+        
+        function renderUsersTable() {
+            const container = document.getElementById('usersTableContainer');
+            if (!container) return;
+            
+            // Initialize users for current cockpit if doesn't exist
+            if (!window.usersData[ACTIVE_COCKPIT]) {
+                window.usersData[ACTIVE_COCKPIT] = [];
+            }
+            
+            const users = window.usersData[ACTIVE_COCKPIT];
+            
+            if (users.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px;">
+                        <div style="font-size: 48px; color: var(--or-luxe); margin-bottom: 16px;"><i class="icon-settings"></i></div>
+                        <div style="font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 8px;">No users yet</div>
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.4);">Click "Add New User" to create your first user</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: var(--noir-profond); border-bottom: 1px solid var(--or-glow);">
+                                <th style="padding: 16px; text-align: left; font-size: 12px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px;">Name</th>
+                                <th style="padding: 16px; text-align: left; font-size: 12px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px;">Email</th>
+                                <th style="padding: 16px; text-align: left; font-size: 12px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px;">Role</th>
+                                <th style="padding: 16px; text-align: center; font-size: 12px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px;">Status</th>
+                                <th style="padding: 16px; text-align: center; font-size: 12px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${users.map(user => `
+                                <tr style="border-bottom: 1px solid var(--or-fade);">
+                                    <td style="padding: 16px; color: var(--blanc-pur); font-size: 14px;">${user.name}</td>
+                                    <td style="padding: 16px; color: rgba(255,255,255,0.7); font-size: 13px;">${user.email}</td>
+                                    <td style="padding: 16px; color: rgba(255,255,255,0.7); font-size: 13px;">
+                                        <span style="padding: 4px 12px; background: var(--or-fade); border: 1px solid var(--or-luxe); border-radius: 12px; font-size: 11px; color: var(--or-luxe); text-transform: uppercase;">${user.role}</span>
+                                    </td>
+                                    <td style="padding: 16px; text-align: center;">
+                                        <button onclick="toggleUserStatus('${user.id}')" style="padding: 6px 16px; background: ${user.isActive ? 'var(--or-luxe)' : 'transparent'}; border: 1px solid ${user.isActive ? 'var(--or-luxe)' : 'rgba(255,255,255,0.3)'}; border-radius: 6px; color: ${user.isActive ? 'var(--noir-profond)' : 'rgba(255,255,255,0.5)'}; cursor: pointer; font-size: 11px; font-weight: 600; text-transform: uppercase;">
+                                            ${user.isActive ? 'Active' : 'Inactive'}
+                                        </button>
+                                    </td>
+                                    <td style="padding: 16px; text-align: center;">
+                                        <button onclick="deleteUser('${user.id}')" style="padding: 6px 12px; background: transparent; border: 1px solid rgba(239,68,68,0.5); border-radius: 6px; color: rgba(239,68,68,0.8); cursor: pointer; font-size: 11px; font-weight: 600;">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+        
+        function showAddUserModal() {
+            const modal = document.createElement('div');
+            modal.id = 'addUserModal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 10000; backdrop-filter: blur(5px);';
+            
+            modal.innerHTML = `
+                <div style="background: var(--graphite); border: 2px solid var(--or-luxe); border-radius: 16px; padding: 32px; width: 90%; max-width: 500px; box-shadow: 0 20px 60px rgba(0,0,0,0.9);">
+                    <h2 style="font-size: 24px; color: var(--or-luxe); margin: 0 0 24px 0; text-align: center;">Add New User</h2>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Name</label>
+                        <input type="text" id="newUserName" placeholder="Enter full name..." style="width: 100%; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); font-size: 14px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Email</label>
+                        <input type="email" id="newUserEmail" placeholder="user@example.com" style="width: 100%; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); font-size: 14px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Role</label>
+                        <select id="newUserRole" style="width: 100%; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); font-size: 14px;">
+                            <option value="owner">Owner</option>
+                            <option value="admin">Admin</option>
+                            <option value="editor">Editor</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="newUserActive" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 13px; color: rgba(255,255,255,0.8);">Active user</span>
+                        </label>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px;">
+                        <button onclick="closeAddUserModal()" style="flex: 1; padding: 12px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 8px; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 14px; font-weight: 600;">Cancel</button>
+                        <button onclick="createUser()" style="flex: 1; padding: 12px; background: var(--or-luxe); border: none; border-radius: 8px; color: var(--noir-profond); cursor: pointer; font-size: 14px; font-weight: 700; text-transform: uppercase;">Create User</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            document.getElementById('newUserName').focus();
+        }
+        
+        function closeAddUserModal() {
+            const modal = document.getElementById('addUserModal');
+            if (modal) modal.remove();
+        }
+        
+        function createUser() {
+            const name = document.getElementById('newUserName').value.trim();
+            const email = document.getElementById('newUserEmail').value.trim();
+            const role = document.getElementById('newUserRole').value;
+            const isActive = document.getElementById('newUserActive').checked;
+            
+            if (!name || !email) {
+                alert('Please enter both name and email');
+                return;
+            }
+            
+            // Initialize users array for cockpit if doesn't exist
+            if (!window.usersData[ACTIVE_COCKPIT]) {
+                window.usersData[ACTIVE_COCKPIT] = [];
+            }
+            
+            const newUser = {
+                id: `user-${Date.now()}`,
+                name: name,
+                email: email,
+                role: role,
+                isActive: isActive,
+                createdAt: new Date().toISOString(),
+                cockpit: ACTIVE_COCKPIT
+            };
+            
+            window.usersData[ACTIVE_COCKPIT].push(newUser);
+            
+            // Save data
+            CockpitDataManager.saveCurrentData();
+            
+            // Log action
+            logAction('USER_CREATED', `New user: ${name} (${email})`);
+            
+            // Close modal and refresh table
+            closeAddUserModal();
+            renderUsersTable();
+            
+            showNotification('success', 'User Created', `User "${name}" has been successfully added`);
+        }
+        
+        function toggleUserStatus(userId) {
+            const users = window.usersData[ACTIVE_COCKPIT];
+            const user = users.find(u => u.id === userId);
+            
+            if (user) {
+                user.isActive = !user.isActive;
+                
+                // Save data
+                CockpitDataManager.saveCurrentData();
+                
+                // Log action
+                logAction('USER_STATUS_CHANGED', `User ${user.name}: ${user.isActive ? 'activated' : 'deactivated'}`);
+                
+                // Refresh table
+                renderUsersTable();
+                
+                showNotification('success', 'Status Updated', `User "${user.name}" is now ${user.isActive ? 'active' : 'inactive'}`);
+            }
+        }
+        
+        function deleteUser(userId) {
+            const users = window.usersData[ACTIVE_COCKPIT];
+            const user = users.find(u => u.id === userId);
+            
+            if (user && confirm(`Delete user "${user.name}"?\n\nThis action cannot be undone.`)) {
+                window.usersData[ACTIVE_COCKPIT] = users.filter(u => u.id !== userId);
+                
+                // Save data
+                CockpitDataManager.saveCurrentData();
+                
+                // Log action
+                logAction('USER_DELETED', `Deleted user: ${user.name}`);
+                
+                // Refresh table
+                renderUsersTable();
+                
+                showNotification('success', 'User Deleted', `User "${user.name}" has been removed`);
+            }
+        }
+
         function showNotification(type, title, message) {
             // Remove existing notification
             const existing = document.querySelector('.notification-box');
@@ -3619,5 +3920,317 @@ function getLanguageColor(lang) {
     };
     return colors[lang] || '#8b949e';
 }
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// MULTI-COCKPIT THEME SYSTEM WITH DATA ISOLATION
+// ═══════════════════════════════════════════════════════════
+
+const COCKPIT_THEMES = {
+    'myapps': {
+        brandName: 'MyApps',
+        tagline: 'Project Management Cockpit',
+        logo: null,
+        colors: {
+            '--noir-profond': '#0A0E1A',
+            '--blanc-pur': '#FFFFFF',
+            '--or-luxe': '#3B82F6',
+            '--graphite': '#1E293B',
+            '--or-fade': 'rgba(59, 130, 246, 0.1)',
+            '--or-glow': 'rgba(59, 130, 246, 0.3)'
+        },
+        shadows: {
+            '--shadow-luxury': '0 8px 32px rgba(59, 130, 246, 0.15)',
+            '--shadow-card': '0 4px 24px rgba(0, 0, 0, 0.6)',
+            '--glow-gold': '0 0 40px rgba(59, 130, 246, 0.4)'
+        },
+        font: "'Inter', -apple-system, sans-serif"
+    },
+    
+    'onyxpay': {
+        brandName: 'OnyxPay',
+        tagline: 'Premium Payment Gateway',
+        logo: null,
+        colors: {
+            '--noir-profond': '#000000',
+            '--blanc-pur': '#FFFFFF',
+            '--or-luxe': '#d4a57a',
+            '--graphite': '#0a0a0a',
+            '--or-fade': 'rgba(212, 165, 122, 0.08)',
+            '--or-glow': 'rgba(212, 165, 122, 0.3)'
+        },
+        shadows: {
+            '--shadow-luxury': '0 8px 32px rgba(212, 165, 122, 0.15)',
+            '--shadow-card': '0 4px 24px rgba(0, 0, 0, 0.6)',
+            '--glow-gold': '0 0 40px rgba(212, 165, 122, 0.4)'
+        },
+        font: "'Inter', -apple-system, sans-serif"
+    }
+};
+
+// ═══════════════════════════════════════════════════════════
+// COCKPIT DATA MANAGER - COMPLETE ISOLATION
+// ═══════════════════════════════════════════════════════════
+
+let ACTIVE_COCKPIT = 'myapps';
+
+const CockpitDataManager = {
+    // Save current cockpit data to localStorage
+    saveCurrentData() {
+        const dataToSave = {
+            pagesData: window.pagesData || [],
+            currentUser: window.currentUser || null,
+            modificationLog: window.modificationLog || [],
+            projectComments: window.projectComments || {},
+            splashComments: window.splashComments || [],
+            menuComments: window.menuComments || [],
+            currentPage: window.currentPage || 'dashboard',
+            usersData: window.usersData || {}
+        };
+        
+        localStorage.setItem(`${ACTIVE_COCKPIT}_data`, JSON.stringify(dataToSave));
+        console.log(`💾 ${ACTIVE_COCKPIT.toUpperCase()} data saved`);
+    },
+    
+    // Load cockpit-specific data from localStorage
+    loadCockpitData(cockpitId) {
+        const savedData = localStorage.getItem(`${cockpitId}_data`);
+        
+        if (savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                window.pagesData = data.pagesData || window.projectsData || [];
+                window.currentUser = data.currentUser || null;
+                window.modificationLog = data.modificationLog || [];
+                window.projectComments = data.projectComments || {};
+                window.splashComments = data.splashComments || [];
+                window.menuComments = data.menuComments || [];
+                window.currentPage = data.currentPage || 'dashboard';
+                window.usersData = data.usersData || {};
+                
+                console.log(`📂 ${cockpitId.toUpperCase()} data loaded from storage`);
+                return true;
+            } catch (e) {
+                console.error(`❌ Failed to load ${cockpitId} data:`, e);
+                return false;
+            }
+        } else {
+            // Initialize with default data
+            window.pagesData = window.projectsData || [];
+            window.currentUser = null;
+            window.modificationLog = [];
+            window.projectComments = {};
+            window.splashComments = [];
+            window.menuComments = [];
+            window.currentPage = 'dashboard';
+            window.usersData = {};
+            
+            console.log(`🆕 ${cockpitId.toUpperCase()} initialized with fresh data`);
+            return false;
+        }
+    },
+    
+    // Clear all data for current cockpit
+    clearCurrentData() {
+        window.pagesData = window.projectsData || [];
+        window.currentUser = null;
+        window.modificationLog = [];
+        window.projectComments = {};
+        window.splashComments = [];
+        window.menuComments = [];
+        window.currentPage = 'dashboard';
+        window.usersData = {};
+    },
+    
+    // Auto-save data periodically
+    startAutoSave() {
+        setInterval(() => {
+            if (window.currentUser) {
+                this.saveCurrentData();
+            }
+        }, 30000); // Save every 30 seconds if user is logged in
+    }
+};
+
+// ═══════════════════════════════════════════════════════════
+// APPLY COCKPIT THEME
+// ═══════════════════════════════════════════════════════════
+
+function applyCockpitTheme(cockpitId = 'myapps') {
+    const theme = COCKPIT_THEMES[cockpitId];
+    
+    if (!theme) {
+        console.error(`❌ Cockpit theme "${cockpitId}" not found`);
+        return;
+    }
+    
+    const root = document.documentElement;
+    
+    // Apply colors
+    Object.entries(theme.colors).forEach(([variable, value]) => {
+        root.style.setProperty(variable, value);
+    });
+    
+    // Apply shadows
+    Object.entries(theme.shadows).forEach(([variable, value]) => {
+        root.style.setProperty(variable, value);
+    });
+    
+    // Apply font
+    if (theme.font) {
+        root.style.setProperty('--font-body', theme.font);
+    }
+    
+    // Update page title
+    document.title = `${theme.brandName} - ${theme.tagline}`;
+    
+    // Update login header if exists
+    const loginBrand = document.querySelector('.login-brand');
+    if (loginBrand) {
+        loginBrand.textContent = theme.brandName;
+    }
+    
+    const loginTagline = document.querySelector('.login-tagline');
+    if (loginTagline) {
+        loginTagline.textContent = theme.tagline;
+    }
+    
+    // Update header brand if exists
+    const headerBrand = document.querySelector('.header-brand');
+    if (headerBrand) {
+        headerBrand.textContent = theme.brandName;
+    }
+    
+    console.log(`✅ Cockpit theme applied: ${cockpitId.toUpperCase()}`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTO-DETECT COCKPIT FROM URL OR STORAGE
+// ═══════════════════════════════════════════════════════════
+
+function detectAndApplyCockpit() {
+    // Check URL parameter first
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlCockpit = urlParams.get('cockpit');
+    
+    if (urlCockpit && COCKPIT_THEMES[urlCockpit]) {
+        localStorage.setItem('activeCockpit', urlCockpit);
+        ACTIVE_COCKPIT = urlCockpit;
+        applyCockpitTheme(urlCockpit);
+        CockpitDataManager.loadCockpitData(urlCockpit);
+        return;
+    }
+    
+    // Check localStorage (but always prefer myapps if no explicit choice)
+    const storedCockpit = localStorage.getItem('activeCockpit');
+    if (storedCockpit && COCKPIT_THEMES[storedCockpit]) {
+        ACTIVE_COCKPIT = storedCockpit;
+        applyCockpitTheme(storedCockpit);
+        CockpitDataManager.loadCockpitData(storedCockpit);
+        return;
+    }
+    
+    // Default to myapps (MASTER COCKPIT)
+    ACTIVE_COCKPIT = 'myapps';
+    localStorage.setItem('activeCockpit', 'myapps');
+    applyCockpitTheme('myapps');
+    CockpitDataManager.loadCockpitData('myapps');
+}
+
+// ═══════════════════════════════════════════════════════════
+// SESSION MANAGEMENT & AUTO-LOGIN
+// ═══════════════════════════════════════════════════════════
+
+function initializeSession() {
+    // Check if user is already logged in
+    if (window.currentUser && typeof window.currentUser === 'object') {
+        console.log(`✅ Session restored: ${window.currentUser.name || window.currentUser}`);
+        
+        // Hide login, show dashboard
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('mainContainer').classList.add('active');
+        
+        // Update UI with user info
+        const userNameEl = document.getElementById('userName');
+        if (userNameEl) {
+            userNameEl.textContent = window.currentUser.name || window.currentUser;
+        }
+        
+        // Render dashboard
+        renderPagesGrid();
+        
+        // Navigate to last page if exists
+        if (window.currentPage && window.currentPage !== 'dashboard') {
+            navigateToPage(window.currentPage);
+        }
+        
+        logAction('SESSION_RESTORED', `User ${window.currentUser.name || window.currentUser} reconnected`);
+    } else {
+        console.log('ℹ️ No active session, showing login');
+        // Show login page
+        document.getElementById('loginPage').style.display = 'flex';
+        document.getElementById('mainContainer').classList.remove('active');
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// COCKPIT SWITCHER WITH DATA ISOLATION
+// ═══════════════════════════════════════════════════════════
+
+function switchCockpit(cockpitId) {
+    if (!COCKPIT_THEMES[cockpitId]) {
+        console.error(`❌ Unknown cockpit: ${cockpitId}`);
+        return false;
+    }
+    
+    console.log(`🔄 Switching from ${ACTIVE_COCKPIT} to ${cockpitId}...`);
+    
+    // Save current cockpit data
+    CockpitDataManager.saveCurrentData();
+    
+    // Update active cockpit
+    localStorage.setItem('activeCockpit', cockpitId);
+    ACTIVE_COCKPIT = cockpitId;
+    
+    // Force logout and return to login page
+    window.currentUser = null;
+    
+    // Reload page to ensure clean state
+    setTimeout(() => location.reload(), 300);
+    
+    return true;
+}
+
+// ═══════════════════════════════════════════════════════════
+// ENHANCED DATA PERSISTENCE HOOKS
+// ═══════════════════════════════════════════════════════════
+
+// Override critical functions to auto-save data
+const originalLogAction = window.logAction;
+if (typeof originalLogAction === 'function') {
+    window.logAction = function(...args) {
+        originalLogAction.apply(this, args);
+        CockpitDataManager.saveCurrentData();
+    };
+}
+
+// Start auto-save on page load
+window.addEventListener('load', () => {
+    CockpitDataManager.startAutoSave();
+});
+
+// Save data before page unload
+window.addEventListener('beforeunload', () => {
+    if (window.currentUser) {
+        CockpitDataManager.saveCurrentData();
+    }
+});
+
+// ═══════════════════════════════════════════════════════════
+// INITIALIZE ON LOAD
+// ═══════════════════════════════════════════════════════════
+
+detectAndApplyCockpit();
 </script>
 </html>
