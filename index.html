@@ -1,0 +1,3623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyApps - Project Management Cockpit</title>
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           MyApps PROJECT MANAGEMENT COCKPIT
+           Ultra-Luxury Design System for High-End Clientele
+           ═══════════════════════════════════════════════════════════ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* MyApps Theme - Blue Professional */
+            --noir-profond: #0A0E1A;
+            --blanc-pur: #FFFFFF;
+            --or-luxe: #3B82F6;
+            --graphite: #1E293B;
+            --or-fade: rgba(59, 130, 246, 0.1);
+            --or-glow: rgba(59, 130, 246, 0.3);
+            
+            /* Spacing Premium */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+            --space-xl: 64px;
+            
+            /* Typography */
+            --font-heading: 'Montserrat', -apple-system, sans-serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            
+            /* Shadows Premium */
+            --shadow-luxury: 0 8px 32px rgba(59, 130, 246, 0.15);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.6);
+            --glow-gold: 0 0 40px rgba(59, 130, 246, 0.4);
+        }
+
+
+        /* Premium Vector Icons via CSS */
+        .icon-mobile::before { content: "⌘"; }
+        .icon-desktop::before { content: "⌗"; }
+        .icon-stats::before { content: "▤"; }
+        .icon-folder::before { content: "⎗"; }
+        .icon-clipboard::before { content: "☰"; }
+        .icon-bell::before { content: "◉"; }
+        .icon-sparkle::before { content: "✦"; }
+        .icon-comment::before { content: "⌬"; }
+        .icon-palette::before { content: "◐"; }
+        .icon-write::before { content: "✎"; }
+        .icon-ruler::before { content: "▭"; }
+        .icon-link::before { content: "⛓"; }
+        .icon-search::before { content: "⌕"; }
+        .icon-refresh::before { content: "⟲"; }
+        .icon-settings::before { content: "⚙"; }
+        .icon-rocket::before { content: "▲"; }
+        .icon-dev::before { content: "●"; color: #3B82F6; }
+        .icon-plan::before { content: "◯"; color: rgba(59,130,246,0.6); }
+        .icon-done::before { content: "✓"; color: #10B981; }
+        .icon-idea::before { content: "◈"; }
+        .icon-ai::before { content: "⚡"; }
+        
+        .icon-mobile::before,
+        .icon-desktop::before,
+        .icon-stats::before,
+        .icon-folder::before,
+        .icon-clipboard::before,
+        .icon-bell::before,
+        .icon-sparkle::before,
+        .icon-comment::before,
+        .icon-palette::before,
+        .icon-write::before,
+        .icon-ruler::before,
+        .icon-link::before,
+        .icon-search::before,
+        .icon-refresh::before,
+        .icon-settings::before,
+        .icon-rocket::before,
+        .icon-idea::before,
+        .icon-ai::before {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--or-luxe);
+            font-size: 1.1em;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: var(--font-body);
+            background: var(--noir-profond);
+            color: var(--blanc-pur);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           LOGIN PAGE - ULTRA PREMIUM
+           ═══════════════════════════════════════════════════════════ */
+        
+        #loginPage {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--noir-profond);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #loginPage::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--or-luxe) 0%, transparent 70%);
+            top: -300px;
+            right: -200px;
+            opacity: 0.08;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        #loginPage::after {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--or-luxe) 0%, transparent 70%);
+            bottom: -400px;
+            left: -300px;
+            opacity: 0.05;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+        }
+
+        .login-container {
+            background: var(--graphite);
+            padding: var(--space-xl);
+            border-radius: 2px;
+            border: 1px solid var(--or-luxe);
+            box-shadow: var(--shadow-luxury);
+            width: 90%;
+            max-width: 480px;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--or-luxe);
+            padding-bottom: var(--space-lg);
+        }
+
+        .login-logo {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--or-luxe);
+            letter-spacing: 8px;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+        }
+
+        .login-subtitle {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--or-luxe);
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 0;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            font-weight: 300;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--noir-profond);
+            color: var(--blanc-pur);
+            letter-spacing: 1px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--or-luxe);
+            box-shadow: 0 0 0 1px var(--or-luxe), var(--glow-gold);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 18px;
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+            border: none;
+            border-radius: 0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: var(--space-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-login:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            padding: 14px 18px;
+            border-radius: 0;
+            font-size: 0.75rem;
+            margin-top: var(--space-sm);
+            display: none;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MAIN CONTAINER - PREMIUM DASHBOARD
+           ═══════════════════════════════════════════════════════════ */
+        
+        #mainContainer {
+            display: none;
+            min-height: 100vh;
+            background: var(--noir-profond);
+        }
+
+        #mainContainer.active {
+            display: block;
+        }
+
+        /* Header Premium */
+        .main-header {
+            background: var(--graphite);
+            border-bottom: 1px solid var(--or-luxe);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-card);
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--or-luxe);
+            letter-spacing: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .brand-logo:hover {
+            letter-spacing: 8px;
+            text-shadow: var(--glow-gold);
+        }
+
+        .brand-divider {
+            width: 1px;
+            height: 30px;
+            background: var(--or-luxe);
+            opacity: 0.3;
+        }
+
+        .brand-version {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 0;
+            background: var(--noir-profond);
+        }
+
+        .user-avatar {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--or-luxe);
+            box-shadow: 0 0 10px var(--or-luxe);
+        }
+
+        .user-name {
+            font-weight: 400;
+            color: var(--blanc-pur);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-logout {
+            padding: 10px 24px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--or-luxe);
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+            box-shadow: var(--glow-gold);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            margin-bottom: var(--space-xl);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding-bottom: var(--space-lg);
+        }
+
+        .page-kicker {
+            font-size: 0.65rem;
+            color: var(--or-luxe);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .page-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--blanc-pur);
+            margin-bottom: var(--space-sm);
+            letter-spacing: 2px;
+        }
+
+        .page-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 800px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Action Bar Premium */
+        .action-bar {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .btn-primary {
+            padding: 14px 32px;
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+            border: none;
+            border-radius: 0;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .btn-secondary {
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--or-luxe);
+            border: 1px solid var(--or-luxe);
+            border-radius: 0;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--or-fade);
+        }
+
+        /* Pages Grid Premium */
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        /* Featured Card (Horizontal) */
+        .page-card.featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: var(--space-lg);
+            padding: var(--space-xl);
+            background: linear-gradient(135deg, var(--graphite) 0%, rgba(42, 42, 42, 0.6) 100%);
+            border: 2px solid var(--or-luxe);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--or-luxe);
+        }
+
+        .page-card.featured::after {
+            content: 'FEATURED';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+            padding: 6px 40px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transform: rotate(45deg);
+        }
+
+        .page-card.featured .page-card-icon {
+            width: 80px;
+            height: 80px;
+            font-size: 1.5rem;
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+            border: none;
+        }
+
+        .page-card.featured .page-card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .page-card.featured .page-card-title {
+            font-size: 2rem;
+            margin-bottom: 0;
+        }
+
+        .page-card.featured .page-card-desc {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .page-card.featured .page-card-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            gap: var(--space-sm);
+            padding: 0;
+        }
+
+        .page-card.featured .page-card-menu {
+            position: static;
+            margin-bottom: var(--space-sm);
+        }
+
+        .page-card.featured:hover {
+            transform: translateY(-4px);
+            border-color: #E5C158;
+            box-shadow: var(--shadow-luxury), 0 0 60px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+
+        .section-divider-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--or-luxe);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+
+        .section-divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--or-luxe) 0%, transparent 100%);
+        }
+
+        .page-card {
+            background: var(--graphite);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: var(--space-lg);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--or-luxe);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .page-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--or-luxe);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .page-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .page-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--or-fade);
+            border: 1px solid var(--or-luxe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--or-luxe);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .page-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--blanc-pur);
+            margin-bottom: var(--space-xs);
+            letter-spacing: 1px;
+        }
+
+        .page-card-desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+            margin-bottom: var(--space-sm);
+            font-weight: 300;
+        }
+
+        .page-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: var(--space-sm);
+        }
+
+        .page-card-status {
+            font-size: 0.65rem;
+            padding: 6px 14px;
+            border: 1px solid;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-active {
+            border-color: var(--or-luxe);
+            color: var(--or-luxe);
+        }
+
+        .status-draft {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .page-card-date {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Content Sections Premium */
+        .content-section {
+            background: var(--graphite);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-left: 2px solid var(--or-luxe);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--or-luxe);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--or-luxe);
+            font-size: 0.75rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--or-fade);
+            border-color: var(--or-luxe);
+        }
+
+        .editable-content {
+            min-height: 120px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .editable-content p {
+            margin: var(--space-sm) 0;
+        }
+
+        .editable-content strong {
+            color: var(--or-luxe);
+            font-weight: 400;
+        }
+
+        .editable-content ul {
+            margin: var(--space-sm) 0;
+            padding-left: 24px;
+        }
+
+        .editable-content li {
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .editable-content li::marker {
+            color: var(--or-luxe);
+        }
+
+        /* Logger Console Premium */
+        .logger-console {
+            background: var(--graphite);
+            border-top: 1px solid var(--or-luxe);
+            margin-top: var(--space-xl);
+            position: sticky;
+            bottom: 0;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.8);
+            display: none;
+        }
+
+        .logger-header {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--noir-profond);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .logger-title {
+            font-size: 0.7rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--or-luxe);
+        }
+
+        .logger-toggle {
+            padding: 6px 16px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--or-luxe);
+            font-size: 0.65rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logger-toggle:hover {
+            background: var(--or-fade);
+        }
+
+        .logger-content {
+            max-height: 250px;
+            overflow-y: auto;
+            padding: var(--space-md) var(--space-lg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 2;
+        }
+
+        .logger-content.collapsed {
+            display: none;
+        }
+
+        .log-entry {
+            padding: 10px 14px;
+            background: rgba(212, 175, 55, 0.03);
+            border-left: 2px solid var(--or-luxe);
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .log-entry:hover {
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .log-timestamp {
+            color: var(--or-luxe);
+            font-weight: 600;
+        }
+
+        .log-user {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .log-action {
+            color: var(--blanc-pur);
+        }
+
+        /* Responsive Premium */
+        @media (max-width: 1024px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .pages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+        }
+
+        /* Scrollbar Premium */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--noir-profond);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--or-luxe);
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E5C158;
+        }
+
+        /* Selection Premium */
+        ::selection {
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+        }
+
+        /* Notification Box Premium */
+        .notification-box {
+            position: fixed;
+            top: 100px;
+            right: 40px;
+            background: var(--graphite);
+            border: 1px solid var(--or-luxe);
+            padding: var(--space-md);
+            min-width: 320px;
+            z-index: 9999;
+            animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .notification-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .notification-icon.success {
+            background: var(--or-luxe);
+        }
+
+        .notification-icon.error {
+            background: #ff6b6b;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: var(--blanc-pur);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .notification-message {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            line-height: 1.6;
+            padding-left: 44px;
+        }
+
+        .notification-progress {
+            height: 2px;
+            background: var(--or-luxe);
+            margin-top: var(--space-sm);
+            animation: shrink 3s linear;
+        }
+
+        @keyframes shrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        /* Dev Tools Panel */
+        .dev-tools-panel {
+            background: var(--graphite);
+            border: 1px solid var(--or-luxe);
+            margin-bottom: var(--space-xl);
+            display: none;
+            animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dev-tools-panel.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dev-tools-header {
+            background: var(--noir-profond);
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .dev-tools-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--or-luxe);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .dev-module {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .dev-module:last-child {
+            border-bottom: none;
+        }
+
+        .dev-module-header {
+            padding: var(--space-md);
+            background: var(--graphite);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dev-module-header:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .dev-module-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--blanc-pur);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .dev-module-toggle {
+            color: var(--or-luxe);
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .dev-module-content {
+            padding: var(--space-md);
+            background: var(--noir-profond);
+            max-height: 600px;
+            overflow: auto;
+            transition: all 0.3s ease;
+        }
+
+        .dev-module-content.collapsed {
+            display: none;
+        }
+
+        /* HTML Preview */
+        .html-preview-container {
+            background: var(--graphite);
+            padding: var(--space-md);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-left: 2px solid var(--or-luxe);
+        }
+
+        /* Code Container */
+        .code-container {
+            position: relative;
+        }
+
+        .code-container pre {
+            background: #000000;
+            padding: var(--space-md);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        .code-container code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #D1FAE5;
+            line-height: 1.8;
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 6px 16px;
+            background: transparent;
+            border: 1px solid var(--or-luxe);
+            color: var(--or-luxe);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .btn-copy:hover {
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+        }
+
+        /* Schema Container */
+        .schema-container {
+            padding: var(--space-md);
+        }
+
+        .schema-node {
+            background: var(--graphite);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: var(--space-md);
+            margin-bottom: var(--space-sm);
+            text-align: center;
+        }
+
+        .schema-node.active {
+            border-color: var(--or-luxe);
+            border-left: 3px solid var(--or-luxe);
+        }
+
+        .schema-node-title {
+            font-weight: 600;
+            color: var(--blanc-pur);
+            margin-bottom: var(--space-xs);
+            font-size: 0.9rem;
+        }
+
+        .schema-node-id {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-family: 'Courier New', monospace;
+            margin-bottom: var(--space-sm);
+        }
+
+        .schema-section {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 8px 0;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .schema-section:first-of-type {
+            border-top: none;
+        }
+
+        .schema-bullet {
+            color: var(--or-luxe);
+            font-size: 0.6rem;
+        }
+
+        .schema-arrow {
+            color: var(--or-luxe);
+            font-size: 1.5rem;
+            padding: var(--space-sm) 0;
+            text-align: center;
+        }
+
+        /* Workflow Container */
+        .workflow-container {
+            padding: var(--space-md);
+        }
+
+        .workflow-step {
+            display: flex;
+            gap: var(--space-md);
+            align-items: flex-start;
+            padding: var(--space-md);
+            background: var(--graphite);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-left: 2px solid var(--or-luxe);
+            margin-bottom: var(--space-sm);
+        }
+
+        .workflow-number {
+            width: 32px;
+            height: 32px;
+            background: var(--or-luxe);
+            color: var(--noir-profond);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .workflow-info {
+            flex: 1;
+        }
+
+        .workflow-title {
+            font-weight: 600;
+            color: var(--blanc-pur);
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .workflow-desc {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .workflow-arrow {
+            color: var(--or-luxe);
+            font-size: 1.2rem;
+            text-align: center;
+            padding: var(--space-xs) 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN PAGE PREMIUM -->
+    <div id="loginPage">
+        <div class="login-container">
+            <div class="login-header">
+                <h1 class="login-logo">MyApps</h1>
+                <p class="login-subtitle">Premium Console</p>
+            </div>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">User</label>
+                    <select id="loginUser" class="form-input" required>
+                        <option value="Adrien" selected>Adrien</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Access Code</label>
+                    <input 
+                        type="password" 
+                        id="loginPin" 
+                        class="form-input" 
+                        placeholder="Enter access code"
+                        maxlength="4"
+                        value="0334"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    Access Console
+                </button>
+                
+                <div id="loginError" class="error-message">
+                    Invalid credentials
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD PREMIUM -->
+    <div id="mainContainer">
+        <header class="main-header">
+            <div class="header-container">
+                <div class="header-brand">
+                    <div class="brand-logo" onclick="navigateToPage('dashboard')">MyApps</div>
+                    <div class="brand-divider"></div>
+                    <span class="brand-version">v3.0 Premium</span>
+                </div>
+                
+                <div class="header-user">
+                    <div class="user-badge">
+                        <div class="user-avatar"></div>
+                        <span class="user-name" id="userName">Adrien</span>
+                    </div>
+                    <button class="btn-logout" onclick="handleLogout()">
+                        Disconnect
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="dashboardView" class="page-view active">
+                <div class="page-header">
+                    <span class="page-kicker">Master Console</span>
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-description">
+                        Centralized project management cockpit for all your applications.
+                        Select a module below to access detailed information and controls.
+                    </p>
+                </div>
+
+                <div class="action-bar">
+                    <button class="btn-primary" onclick="showNewProjectModal()">
+                        New Module
+                    </button>
+                    <button class="btn-secondary" onclick="exportToDrive()">
+                        Export Data
+                    </button>
+                </div>
+
+                <div class="pages-grid" id="pagesGrid">
+                    <!-- Pages will be rendered here -->
+                </div>
+            </div>
+
+            <div id="pageContentView" class="page-view">
+                <!-- Dynamic page content -->
+            </div>
+        </main>
+
+        <!-- Logger Console -->
+        <div class="logger-console">
+            <div class="logger-header">
+                <div class="logger-title">Activity Log</div>
+                <button class="logger-toggle" onclick="toggleLogger()">
+                    Toggle
+                </button>
+            </div>
+            <div class="logger-content" id="loggerContent">
+                <!-- Logs will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL - NEW PAGE -->
+    <div id="addPageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">NEW MODULE</h2>
+                <button class="btn-close" onclick="closeAddPageModal()">×</button>
+            </div>
+            
+            <form id="addPageForm" onsubmit="addNewPage(event)">
+                <div class="form-group">
+                    <label class="form-label">Module Name</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="pageTitle"
+                        placeholder="Ex: Budget Q1, Analytics Dashboard..."
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Icon Code (2 letters)</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="pageIcon"
+                        placeholder="Ex: BQ, AD, RP..."
+                        maxlength="2"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea 
+                        class="form-input" 
+                        id="pageDescription"
+                        placeholder="Brief description of the module..."
+                        rows="3"
+                        required
+                    ></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 24px;">
+                    Create Module
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL - EDIT PAGE -->
+    <div id="editPageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">EDIT MODULE</h2>
+                <button class="btn-close" onclick="closeEditPageModal()">×</button>
+            </div>
+            
+            <form id="editPageForm" onsubmit="savePageEdit(event)">
+                <input type="hidden" id="editPageId">
+                
+                <div class="form-group">
+                    <label class="form-label">Module Name</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="editPageTitle"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Icon Code</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="editPageIcon"
+                        maxlength="2"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea 
+                        class="form-input" 
+                        id="editPageDescription"
+                        rows="3"
+                        required
+                    ></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                    <button type="submit" class="btn-primary" style="flex: 1;">
+                        Save Changes
+                    </button>
+                    <button type="button" class="btn-delete" onclick="confirmDeletePage()" style="flex: 1;">
+                        Delete Module
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--graphite);
+            border: 1px solid var(--or-luxe);
+            padding: var(--space-xl);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--or-luxe);
+            letter-spacing: 3px;
+        }
+
+        .btn-close {
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: transparent;
+            color: var(--or-luxe);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-close:hover {
+            background: var(--or-fade);
+            transform: rotate(90deg);
+        }
+
+        .btn-delete {
+            padding: 14px 32px;
+            background: transparent;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+            border-radius: 0;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .page-card-menu {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: transparent;
+            color: var(--or-luxe);
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-card-menu:hover {
+            background: var(--or-fade);
+            border-color: var(--or-luxe);
+        }
+    </style>
+
+    <script>
+        // Modal Functions
+        function openAddPageModal() {
+            document.getElementById('addPageModal').classList.add('show');
+            logAction('MODAL_OPEN', 'New page modal opened');
+        }
+
+        function closeAddPageModal() {
+            document.getElementById('addPageModal').classList.remove('show');
+            document.getElementById('addPageForm').reset();
+        }
+
+        function openEditPageModal(pageId) {
+            const page = pagesData.find(p => p.id === pageId);
+            if (!page) return;
+
+            document.getElementById('editPageId').value = page.id;
+            document.getElementById('editPageTitle').value = page.title;
+            document.getElementById('editPageIcon').value = page.icon;
+            document.getElementById('editPageDescription').value = page.description;
+            
+            document.getElementById('editPageModal').classList.add('show');
+            logAction('MODAL_OPEN', `Edit modal for: ${page.title}`);
+        }
+
+        function closeEditPageModal() {
+            document.getElementById('editPageModal').classList.remove('show');
+            document.getElementById('editPageForm').reset();
+        }
+
+        function addNewPage(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('pageTitle').value.trim();
+            const icon = document.getElementById('pageIcon').value.trim().toUpperCase();
+            const description = document.getElementById('pageDescription').value.trim();
+            
+            const today = new Date().toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+            
+            const pageId = title.toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9-]/g, '');
+            
+            if (pagesData.find(p => p.id === pageId)) {
+                showNotification('error', 'Module Exists', 'A module with this name already exists');
+                return;
+            }
+            
+            const newPage = {
+                id: pageId,
+                icon: icon,
+                title: title,
+                description: description,
+                status: 'draft',
+                date: today,
+                content: {
+                    kicker: 'New Module',
+                    sections: [
+                        {
+                            id: `${pageId}-section1`,
+                            title: 'Overview',
+                            content: '<p><strong>Module overview</strong></p><p>Click Edit to add content to this section.</p>'
+                        }
+                    ]
+                }
+            };
+            
+            pagesData.push(newPage);
+            renderPagesGrid();
+            
+            logAction('PAGE_CREATED', `New page: ${title}`);
+            closeAddPageModal();
+            
+            showNotification('success', 'Module Created', `"${title}" has been successfully added to your dashboard`);
+        }
+
+        function savePageEdit(event) {
+            event.preventDefault();
+            
+            const pageId = document.getElementById('editPageId').value;
+            const page = pagesData.find(p => p.id === pageId);
+            
+            if (!page) return;
+            
+            page.title = document.getElementById('editPageTitle').value.trim();
+            page.icon = document.getElementById('editPageIcon').value.trim().toUpperCase();
+            page.description = document.getElementById('editPageDescription').value.trim();
+            
+            renderPagesGrid();
+            logAction('PAGE_EDITED', `Updated: ${page.title}`);
+            closeEditPageModal();
+            
+            showNotification('success', 'Module Updated', `"${page.title}" has been successfully updated`);
+        }
+
+        function confirmDeletePage() {
+            const pageId = document.getElementById('editPageId').value;
+            const page = pagesData.find(p => p.id === pageId);
+            
+            if (!page) return;
+            
+            if (confirm(`Delete module "${page.title}"?\n\nThis action cannot be undone.`)) {
+                const pageTitle = page.title;
+                pagesData = pagesData.filter(p => p.id !== pageId);
+                renderPagesGrid();
+                logAction('PAGE_DELETED', `Deleted: ${pageTitle}`);
+                closeEditPageModal();
+                
+                if (currentPage === pageId) {
+                    navigateToPage('dashboard');
+                }
+                
+                showNotification('success', 'Module Deleted', `"${pageTitle}" has been removed from your dashboard`);
+            }
+        }
+
+        function openPageMenu(event, pageId) {
+            event.stopPropagation();
+            openEditPageModal(pageId);
+        }
+
+        // User Credentials
+        const USERS = {
+            'Adrien': '0334'
+        };
+
+        let currentUser = null;
+        let modificationLog = [];
+        let currentPage = 'dashboard';
+
+        // Pages Data - Premium Structure
+        let projectsData = [
+            // <i class="icon-rocket"></i> EN PRODUCTION
+            {
+                id: 'ordergate-prod',
+                projectType: 'mobile',
+                icon: '<i class="icon-rocket"></i>',
+                title: 'ORDERGATE',
+                description: 'Premium mobile ordering app - LIVE in production',
+                status: 'active',
+                category: 'production',
+                progress: 100,
+                date: '15 Nov 2025',
+                content: {
+                    kicker: '<i class="icon-rocket"></i> Production',
+                    sections: [
+                        {
+                            id: 'prod-status',
+                            title: 'Production Status',
+                            content: '<p><strong>Live Application</strong></p><ul><li>Status: <i class="icon-done"></i> LIVE</li><li>Version: v1.2.0</li><li>Active Users: 2,450</li><li>Uptime: 99.9%</li><li>Last Deploy: Nov 10, 2025</li></ul>'
+                        },
+                        {
+                            id: 'prod-metrics',
+                            title: 'Key Metrics',
+                            content: '<p><strong>Performance Indicators:</strong></p><ul><li>Daily Orders: 850+</li><li>Revenue: €12,400/day</li><li>Response Time: 120ms avg</li><li>Success Rate: 98.5%</li><li>Customer Satisfaction: 4.8/5</li></ul>'
+                        }
+                    ]
+                }
+            },
+            
+            // <i class="icon-dev"></i> EN DÉVELOPPEMENT
+            {
+                id: 'ordergate-dev',
+                projectType: 'mobile',
+                icon: '<i class="icon-dev"></i>',
+                title: 'ORDERGATE v2.0',
+                description: 'Major update with AI features and enhanced UX',
+                status: 'active',
+                category: 'development',
+                progress: 65,
+                date: '15 Nov 2025',
+                content: {
+                    kicker: '<i class="icon-dev"></i> In Development',
+                    sections: [
+                        {
+                            id: 'dev-overview',
+                            title: 'Development Overview',
+                            content: '<p><strong>Version 2.0 Major Update</strong></p><ul><li>Progress: 65% complete</li><li>Target Release: Q1 2026</li><li>Team: 3 developers</li><li>Sprint: 4/8 completed</li><li>Status: On track</li></ul>'
+                        }
+                    ]
+                }
+            },
+            
+            {
+                id: 'analytics-dashboard',
+                projectType: 'desktop',
+                icon: '<i class="icon-stats"></i>',
+                title: 'Analytics Dashboard',
+                description: 'Real-time business intelligence platform',
+                status: 'active',
+                category: 'development',
+                progress: 45,
+                date: '14 Nov 2025',
+                content: {
+                    kicker: '<i class="icon-dev"></i> In Development',
+                    sections: [
+                        {
+                            id: 'analytics-overview',
+                            title: 'Project Overview',
+                            content: '<p><strong>BI Dashboard Development</strong></p><ul><li>Progress: 45% complete</li><li>Target: Dec 2025</li><li>Stack: React, D3.js, Node.js</li></ul>'
+                        }
+                    ]
+                }
+            },
+            
+            // <i class="icon-clipboard"></i> PLANIFIÉS
+            {
+                id: 'marketing-automation',
+                projectType: 'desktop',
+                icon: '<i class="icon-clipboard"></i>',
+                title: 'Marketing Automation',
+                description: 'Automated email campaigns and social media management',
+                status: 'active',
+                category: 'planned',
+                progress: 0,
+                date: '10 Nov 2025',
+                content: {
+                    kicker: '<i class="icon-clipboard"></i> Planned',
+                    sections: [
+                        {
+                            id: 'marketing-overview',
+                            title: 'Project Scope',
+                            content: '<p><strong>Marketing Platform</strong></p><ul><li>Status: Planning phase</li><li>Target Start: Q2 2026</li><li>Estimated Duration: 3 months</li></ul>'
+                        }
+                    ]
+                }
+            },
+            
+            // <i class="icon-idea"></i> IDÉES
+            {
+                id: 'blockchain-loyalty',
+                projectType: 'mobile',
+                icon: '<i class="icon-idea"></i>',
+                title: 'Blockchain Loyalty',
+                description: 'NFT-based loyalty program with tokenized rewards',
+                status: 'draft',
+                category: 'ideas',
+                progress: 0,
+                date: '05 Nov 2025',
+                content: {
+                    kicker: '<i class="icon-idea"></i> Idea',
+                    sections: [
+                        {
+                            id: 'blockchain-concept',
+                            title: 'Concept',
+                            content: '<p><strong>Web3 Loyalty Program</strong></p><ul><li>Status: Concept phase</li><li>Blockchain: Polygon/Ethereum</li><li>NFT rewards for customers</li></ul>'
+                        }
+                    ]
+                }
+            }
+        ];
+        
+        let pagesData = projectsData;
+
+        // Login System
+        function handleLogin(event) {
+            event.preventDefault();
+            console.log('=== LOGIN ATTEMPT ===');
+            
+            const user = document.getElementById('loginUser').value;
+            const pin = document.getElementById('loginPin').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            console.log('User selected:', user);
+            console.log('Pin entered:', pin);
+            console.log('Expected pin:', USERS[user]);
+            console.log('Match?', USERS[user] === pin);
+            
+            if (USERS[user] && USERS[user] === pin) {
+                console.log('<i class="icon-done"></i> LOGIN SUCCESS');
+                currentUser = user;
+                errorDiv.classList.remove('show');
+                document.getElementById('userName').textContent = user;
+                logAction('SESSION_START', `User ${user} logged in`);
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('mainContainer').classList.add('active');
+                renderPagesGrid();
+            } else {
+                console.log('❌ LOGIN FAILED');
+                errorDiv.classList.add('show');
+                document.getElementById('loginPin').value = '';
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('Disconnect from console?')) {
+                logAction('SESSION_END', `User ${currentUser} logged out`);
+                currentUser = null;
+                currentPage = 'dashboard';
+                document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('mainContainer').classList.remove('active');
+                document.getElementById('loginForm').reset();
+            }
+        }
+
+        // Navigation
+        function navigateToPage(pageId) {
+            currentPage = pageId;
+            if (pageId === 'dashboard') {
+                document.getElementById('dashboardView').classList.add('active');
+                document.getElementById('pageContentView').classList.remove('active');
+                logAction('NAVIGATE', 'Returned to dashboard');
+            } else {
+                const page = pagesData.find(p => p.id === pageId);
+                if (page) {
+                    renderPageContent(page);
+                    document.getElementById('dashboardView').classList.remove('active');
+                    document.getElementById('pageContentView').classList.add('active');
+                    logAction('NAVIGATE', `Opened: ${page.title}`);
+                }
+            }
+        }
+
+        function renderPagesGrid() {
+            const grid = document.getElementById('pagesGrid');
+            grid.innerHTML = '';
+            
+            // Separate by project type
+            const mobileProjects = pagesData.filter(p => p.projectType === 'mobile' || !p.projectType);
+            const desktopProjects = pagesData.filter(p => p.projectType === 'desktop');
+            
+            // MOBILE APPS SECTION
+            if (mobileProjects.length > 0) {
+                const mobileSectionTitle = document.createElement('div');
+                mobileSectionTitle.className = 'section-divider';
+                mobileSectionTitle.innerHTML = `
+                    <h2 class="section-divider-title"><i class="icon-mobile"></i> Mobile Apps</h2>
+                    <div class="section-divider-line"></div>
+                `;
+                grid.appendChild(mobileSectionTitle);
+                
+                // Render mobile project cards
+                mobileProjects.forEach(page => {
+                    const card = createProjectCard(page);
+                    grid.appendChild(card);
+                });
+            }
+            
+            // DESKTOP APPS SECTION
+            if (desktopProjects.length > 0) {
+                const desktopSectionTitle = document.createElement('div');
+                desktopSectionTitle.className = 'section-divider';
+                desktopSectionTitle.innerHTML = `
+                    <h2 class="section-divider-title"><i class="icon-desktop"></i> Desktop Apps</h2>
+                    <div class="section-divider-line"></div>
+                `;
+                grid.appendChild(desktopSectionTitle);
+                
+                // Render desktop project cards
+                desktopProjects.forEach(page => {
+                    const card = createProjectCard(page);
+                    grid.appendChild(card);
+                });
+            }
+        }
+        
+        function createProjectCard(page) {
+            const card = document.createElement('div');
+            card.className = 'page-card';
+            card.onclick = () => navigateToPage(page.id);
+            
+            // Progress bar if exists
+            const progressBar = page.progress !== undefined ? `
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase;">Progress</span>
+                        <span style="font-size: 11px; color: var(--or-luxe); font-weight: 600;">${page.progress}%</span>
+                    </div>
+                    <div style="width: 100%; height: 6px; background: rgba(59,130,246,0.2); border-radius: 3px; overflow: hidden;">
+                        <div style="height: 100%; width: ${page.progress}%; background: linear-gradient(90deg, var(--or-luxe), #60A5FA); transition: width 0.3s;"></div>
+                    </div>
+                </div>
+            ` : '';
+            
+            // Category badge
+            const categoryBadge = page.category ? `
+                <span style="padding: 4px 10px; background: var(--or-fade); border: 1px solid var(--or-luxe); border-radius: 12px; font-size: 9px; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 0.5px;">${page.category}</span>
+            ` : '';
+            
+            card.innerHTML = `
+                <button class="page-card-menu" onclick="openPageMenu(event, '${page.id}')">⋯</button>
+                <div class="page-card-header">
+                    <div class="page-card-icon">${page.icon}</div>
+                </div>
+                <h3 class="page-card-title">${page.title}</h3>
+                <p class="page-card-desc">${page.description}</p>
+                ${progressBar}
+                <div class="page-card-footer" style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        ${categoryBadge}
+                        <span class="page-card-status status-${page.status}">${page.status === 'active' ? 'Active' : 'Draft'}</span>
+                    </div>
+                    <span class="page-card-date">${page.date}</span>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        function showNewProjectModal() {
+            const modal = document.createElement('div');
+            modal.id = 'newProjectModal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 10000;';
+            
+            modal.innerHTML = `
+                <div style="background: var(--graphite); border: 2px solid var(--or-luxe); border-radius: 16px; padding: 32px; width: 90%; max-width: 500px; box-shadow: 0 20px 60px rgba(0,0,0,0.9);">
+                    <h2 style="font-size: 24px; color: var(--or-luxe); margin: 0 0 24px 0; text-align: center;">Create New Project</h2>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Project Type</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="project-type-option" data-type="mobile" onclick="selectProjectType('mobile')" style="padding: 20px; background: var(--or-fade); border: 2px solid var(--or-luxe); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s;">
+                                <div style="font-size: 48px; margin-bottom: 8px;"><i class="icon-mobile"></i></div>
+                                <div style="font-size: 14px; font-weight: 600; color: var(--or-luxe);">Mobile App</div>
+                            </div>
+                            <div class="project-type-option" data-type="desktop" onclick="selectProjectType('desktop')" style="padding: 20px; background: var(--noir-profond); border: 2px solid var(--or-glow); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s;">
+                                <div style="font-size: 48px; margin-bottom: 8px;"><i class="icon-desktop"></i></div>
+                                <div style="font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.6);">Desktop App</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Project Name</label>
+                        <input type="text" id="newProjectName" placeholder="Enter project name..." style="width: 100%; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); font-size: 14px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Description</label>
+                        <textarea id="newProjectDesc" placeholder="Project description..." rows="3" style="width: 100%; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); font-size: 14px; resize: none;"></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px; margin-top: 24px;">
+                        <button onclick="closeNewProjectModal()" style="flex: 1; padding: 12px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 8px; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 14px; font-weight: 600;">Cancel</button>
+                        <button onclick="createNewProject()" style="flex: 1; padding: 12px; background: var(--or-luxe); border: none; border-radius: 8px; color: var(--noir-profond); cursor: pointer; font-size: 14px; font-weight: 700; text-transform: uppercase;">Create</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            document.getElementById('newProjectName').focus();
+        }
+        
+        let selectedProjectType = 'mobile';
+        
+        function selectProjectType(type) {
+            selectedProjectType = type;
+            
+            document.querySelectorAll('.project-type-option').forEach(option => {
+                if (option.dataset.type === type) {
+                    option.style.background = 'var(--or-fade)';
+                    option.style.borderColor = 'var(--or-luxe)';
+                    option.querySelector('div:last-child').style.color = 'var(--or-luxe)';
+                } else {
+                    option.style.background = 'var(--noir-profond)';
+                    option.style.borderColor = 'var(--or-glow)';
+                    option.querySelector('div:last-child').style.color = 'rgba(255,255,255,0.6)';
+                }
+            });
+        }
+        
+        function closeNewProjectModal() {
+            const modal = document.getElementById('newProjectModal');
+            if (modal) modal.remove();
+        }
+        
+        function createNewProject() {
+            const name = document.getElementById('newProjectName').value.trim();
+            const desc = document.getElementById('newProjectDesc').value.trim();
+            
+            if (!name) {
+                alert('Please enter a project name');
+                return;
+            }
+            
+            const newProject = {
+                id: 'project-' + Date.now(),
+                icon: selectedProjectType === 'mobile' ? '<i class="icon-mobile"></i>' : '<i class="icon-desktop"></i>',
+                title: name,
+                description: desc || 'New project description',
+                status: 'active',
+                category: 'development',
+                progress: 0,
+                projectType: selectedProjectType,
+                date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }),
+                content: {
+                    kicker: 'New Project',
+                    sections: [
+                        {
+                            id: 'overview',
+                            title: 'Overview',
+                            content: '<p>Project overview will be added here.</p>'
+                        }
+                    ]
+                }
+            };
+            
+            pagesData.push(newProject);
+            renderPagesGrid();
+            closeNewProjectModal();
+            logAction('CREATE', `New ${selectedProjectType} project: ${name}`);
+            
+            // Show success notification
+            const notification = document.createElement('div');
+            notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--or-luxe); color: var(--noir-profond); padding: 16px 24px; border-radius: 8px; font-weight: 600; z-index: 10000;';
+            notification.textContent = '✓ Project created!';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2000);
+        }
+
+        function renderPageContent(page) {
+            const container = document.getElementById('pageContentView');
+            
+            // Use new tabs layout for all projects
+            renderProjectDetail(page);
+            return;
+            
+            // OLD layouts kept for reference (not used)
+            if (page.id === 'app-menu') {
+                renderMenuPageDetail(page);
+                return;
+            }
+            
+            if (page.id === 'app-splash') {
+                renderSplashPageDetail(page);
+                return;
+            }
+            
+            // Default layout for all other pages
+            let sectionsHTML = '';
+            
+            page.content.sections.forEach(section => {
+                sectionsHTML += `
+                    <div class="content-section">
+                        <div class="section-header">
+                            <h2 class="section-title">${section.title}</h2>
+                            <div class="section-actions">
+                                <button class="btn-icon" onclick="editSection(this)" title="Edit">E</button>
+                                <button class="btn-icon" onclick="saveSection(this)" title="Save">S</button>
+                            </div>
+                        </div>
+                        <div class="editable-content" id="${section.id}">
+                            ${section.content}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = `
+                <div class="page-header">
+                    <span class="page-kicker">${page.content.kicker}</span>
+                    <h1 class="page-title">${page.title}</h1>
+                    <p class="page-description">${page.description}</p>
+                </div>
+                
+                <div class="action-bar">
+                    <button class="btn-secondary" onclick="navigateToPage('dashboard')">
+                        Back to Dashboard
+                    </button>
+                    <button class="btn-primary" onclick="toggleDevTools()">
+                        Developer Tools
+                    </button>
+                </div>
+
+                <!-- DEV TOOLS PANEL -->
+                <div class="dev-tools-panel" id="devToolsPanel">
+                    <div class="dev-tools-header">
+                        <span class="dev-tools-title">DEVELOPER TOOLS</span>
+                        <button class="btn-icon" onclick="toggleDevTools()">×</button>
+                    </div>
+
+                    <!-- HTML Preview Module -->
+                    <div class="dev-module">
+                        <div class="dev-module-header" onclick="toggleDevModule(this)">
+                            <span class="dev-module-title">HTML PREVIEW</span>
+                            <span class="dev-module-toggle">▼</span>
+                        </div>
+                        <div class="dev-module-content">
+                            <div class="html-preview-container">
+                                ${sectionsHTML}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HTML Code Module -->
+                    <div class="dev-module">
+                        <div class="dev-module-header" onclick="toggleDevModule(this)">
+                            <span class="dev-module-title">HTML CODE</span>
+                            <span class="dev-module-toggle">▼</span>
+                        </div>
+                        <div class="dev-module-content collapsed">
+                            <div class="code-container">
+                                <button class="btn-copy" onclick="copyCode(this)">COPY</button>
+                                <pre><code>${escapeHtml(generatePageHTML(page))}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JSON Data Module -->
+                    <div class="dev-module">
+                        <div class="dev-module-header" onclick="toggleDevModule(this)">
+                            <span class="dev-module-title">JSON DATA</span>
+                            <span class="dev-module-toggle">▼</span>
+                        </div>
+                        <div class="dev-module-content collapsed">
+                            <div class="code-container">
+                                <button class="btn-copy" onclick="copyCode(this)">COPY</button>
+                                <pre><code>${escapeHtml(JSON.stringify(page, null, 2))}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page Schema Module -->
+                    <div class="dev-module">
+                        <div class="dev-module-header" onclick="toggleDevModule(this)">
+                            <span class="dev-module-title">PAGE SCHEMA</span>
+                            <span class="dev-module-toggle">▼</span>
+                        </div>
+                        <div class="dev-module-content collapsed">
+                            <div class="schema-container">
+                                <div class="schema-node">
+                                    <div class="schema-node-title">Dashboard</div>
+                                    <div class="schema-arrow">↓</div>
+                                </div>
+                                <div class="schema-node active">
+                                    <div class="schema-node-title">${page.title}</div>
+                                    <div class="schema-node-id">${page.id}</div>
+                                    ${page.content.sections.map(s => `
+                                        <div class="schema-section">
+                                            <div class="schema-bullet">●</div>
+                                            <span>${s.title}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workflow Module -->
+                    <div class="dev-module">
+                        <div class="dev-module-header" onclick="toggleDevModule(this)">
+                            <span class="dev-module-title">WORKFLOW</span>
+                            <span class="dev-module-toggle">▼</span>
+                        </div>
+                        <div class="dev-module-content collapsed">
+                            <div class="workflow-container">
+                                <div class="workflow-step">
+                                    <div class="workflow-number">1</div>
+                                    <div class="workflow-info">
+                                        <div class="workflow-title">User Access</div>
+                                        <div class="workflow-desc">User clicks on "${page.title}" card in Dashboard</div>
+                                    </div>
+                                </div>
+                                <div class="workflow-arrow">↓</div>
+                                <div class="workflow-step">
+                                    <div class="workflow-number">2</div>
+                                    <div class="workflow-info">
+                                        <div class="workflow-title">Page Load</div>
+                                        <div class="workflow-desc">Function navigateToPage('${page.id}') triggered</div>
+                                    </div>
+                                </div>
+                                <div class="workflow-arrow">↓</div>
+                                <div class="workflow-step">
+                                    <div class="workflow-number">3</div>
+                                    <div class="workflow-info">
+                                        <div class="workflow-title">Content Render</div>
+                                        <div class="workflow-desc">renderPageContent() displays ${page.content.sections.length} sections</div>
+                                    </div>
+                                </div>
+                                <div class="workflow-arrow">↓</div>
+                                <div class="workflow-step">
+                                    <div class="workflow-number">4</div>
+                                    <div class="workflow-info">
+                                        <div class="workflow-title">User Interaction</div>
+                                        <div class="workflow-desc">Edit sections, view dev tools, or return to Dashboard</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                ${sectionsHTML}
+            `;
+        }
+
+        // Dev Tools Functions
+        function toggleDevTools() {
+            const panel = document.getElementById('devToolsPanel');
+            if (panel) {
+                panel.classList.toggle('show');
+                logAction('DEV_TOOLS', panel.classList.contains('show') ? 'Opened' : 'Closed');
+            }
+        }
+
+        function toggleDevModule(header) {
+            const module = header.parentElement;
+            const content = module.querySelector('.dev-module-content');
+            const toggle = header.querySelector('.dev-module-toggle');
+            
+            content.classList.toggle('collapsed');
+            toggle.textContent = content.classList.contains('collapsed') ? '▼' : '▲';
+        }
+
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = 'COPIED';
+                btn.style.background = 'var(--or-luxe)';
+                btn.style.color = 'var(--noir-profond)';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        }
+
+        function escapeHtml(html) {
+            return html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function generatePageHTML(page) {
+            let html = `<div class="page-content">\n`;
+            html += `  <h1>${page.title}</h1>\n`;
+            html += `  <p>${page.description}</p>\n\n`;
+            
+            page.content.sections.forEach(section => {
+                html += `  <section>\n`;
+                html += `    <h2>${section.title}</h2>\n`;
+                html += `    ${section.content}\n`;
+                html += `  </section>\n\n`;
+            });
+            
+            html += `</div>`;
+            return html;
+        }
+
+        // Logger
+        function logAction(action, details) {
+            const timestamp = new Date().toLocaleString('fr-FR');
+            const logEntry = {
+                timestamp: timestamp,
+                user: currentUser || 'System',
+                action: action,
+                details: details
+            };
+            modificationLog.push(logEntry);
+            
+            const loggerContent = document.getElementById('loggerContent');
+            const logDiv = document.createElement('div');
+            logDiv.className = 'log-entry';
+            logDiv.innerHTML = `
+                <span class="log-timestamp">[${timestamp}]</span>
+                <span class="log-user">[${logEntry.user}]</span>
+                <span class="log-action">${action}</span>
+            `;
+            loggerContent.insertBefore(logDiv, loggerContent.firstChild);
+        }
+
+        function toggleLogger() {
+            const content = document.getElementById('loggerContent');
+            content.classList.toggle('collapsed');
+        }
+
+        // Edit Functions
+        function editSection(btn) {
+            const section = btn.closest('.content-section');
+            const content = section.querySelector('.editable-content');
+            content.setAttribute('contenteditable', 'true');
+            content.style.outline = '1px solid ' + getComputedStyle(document.documentElement).getPropertyValue('--or-luxe');
+            logAction('EDIT_START', `Editing: ${content.id}`);
+        }
+
+        function saveSection(btn) {
+            const section = btn.closest('.content-section');
+            const content = section.querySelector('.editable-content');
+            content.setAttribute('contenteditable', 'false');
+            content.style.outline = 'none';
+            logAction('EDIT_SAVE', `Saved: ${content.id}`);
+        }
+
+        function exportToDrive() {
+            logAction('EXPORT', 'Data export initiated');
+            alert('Export feature - In development');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ORDERGATE Premium Console - Initialized');
+        });
+
+        // Notification System
+        // Special Splash Screen Page Detail with Preview
+        function renderSplashPageDetail(page) {
+            const container = document.getElementById('pageContentView');
+            container.innerHTML = `
+                <div style="padding: 24px; display: grid; grid-template-columns: 380px 520px 380px; gap: 24px; max-width: 1400px; margin: 0 auto; align-items: start;">
+                    
+                    <!-- LEFT: Content & Sections -->
+                    <div style="height: calc(100vh - 140px); display: flex; flex-direction: column;">
+                        <button onclick="navigateToPage('dashboard')" style="width: 100%; padding: 12px 24px; background: transparent; border: 1px solid var(--or-glow); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 14px; margin-bottom: 16px;">
+                            ← Back to Dashboard
+                        </button>
+                        
+                        <div style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+                            <h2 style="font-size: 20px; color: var(--or-luxe); margin: 0 0 16px 0;">${page.title}</h2>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,0.1);">
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase;">Status:</span>
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 12px;">${page.status.toUpperCase()}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,0.1);">
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase;">Date:</span>
+                                    <span style="color: var(--blanc-pur); font-size: 12px;">${page.date}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase;">Icon:</span>
+                                    <span style="color: var(--blanc-pur); font-size: 12px;">${page.icon}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="splashSections" style="flex: 1; overflow-y: auto;"></div>
+                        
+                        <!-- Comments Thread -->
+                        <div style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 16px; margin-top: 16px;">
+                            <h3 style="font-size: 14px; font-weight: 600; color: var(--or-luxe); margin: 0 0 12px 0;"><i class="icon-comment"></i> Comments</h3>
+                            <div id="splashCommentsInline" style="max-height: 200px; overflow-y: auto; margin-bottom: 12px;"></div>
+                            <textarea id="splashCommentInlineInput" placeholder="Add a comment..." rows="2" style="width: 100%; padding: 10px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--blanc-pur); font-family: var(--font-body); font-size: 13px; resize: none; margin-bottom: 8px;"></textarea>
+                            <button onclick="postSplashComment()" style="width: 100%; padding: 10px; background: var(--or-luxe); color: var(--noir-profond); border: none; border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer;">Post</button>
+                        </div>
+                    </div>
+                    
+                    <!-- CENTER: Preview -->
+                    <div style="height: calc(100vh - 140px);">
+                        <div style="height: 100%; background: var(--graphite); border: 2px solid var(--or-luxe); border-radius: 16px; box-shadow: 0 20px 60px rgba(212,175,55,0.3); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div style="padding: 12px 0 20px 0;">
+                                <h3 style="font-size: 13px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 2px; margin: 0; text-align: center;"><i class="icon-mobile"></i> LIVE PREVIEW</h3>
+                            </div>
+                            <div style="width: 400px; height: 800px; background: #000; border-radius: 45px; border: 12px solid #1a1a1a; box-shadow: 0 20px 60px rgba(0,0,0,0.9); position: relative; overflow: hidden;">
+                                <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 160px; height: 30px; background: #000; border-radius: 0 0 18px 18px; z-index: 10;"></div>
+                                <iframe id="splashPreviewIframe" src="about:blank" style="width: 100%; height: 100%; border: none; background: #000;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- RIGHT: Flow Navigation -->
+                    <div style="height: calc(100vh - 140px); display: flex; align-items: center;">
+                        <div style="width: 100%; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 20px; max-height: 100%; display: flex; flex-direction: column;">
+                            <h3 style="font-size: 14px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 16px 0; text-align: center;">APP FLOW</h3>
+                            <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; justify-content: center;">
+                                <button onclick="navigateToPage('app-splash')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 2px solid var(--or-luxe); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 700; font-size: 11px;">01</span>
+                                    <span>Splash ← Current</span>
+                                </button>
+                                <button onclick="navigateToPage('app-onboarding')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">02</span>
+                                    <span>Onboarding</span>
+                                </button>
+                                <button onclick="navigateToPage('app-login')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">03</span>
+                                    <span>Login</span>
+                                </button>
+                                <button onclick="navigateToPage('app-dashboard')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">04</span>
+                                    <span>Dashboard</span>
+                                </button>
+                                <button onclick="navigateToPage('app-venue-select')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">05</span>
+                                    <span>Venue Selection</span>
+                                </button>
+                                <button onclick="navigateToPage('app-qr-scanner')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">06</span>
+                                    <span>QR Scanner</span>
+                                </button>
+                                <button onclick="navigateToPage('app-menu')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">07</span>
+                                    <span>Menu</span>
+                                </button>
+                                <button onclick="navigateToPage('app-product-detail')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">08</span>
+                                    <span>Product Detail</span>
+                                </button>
+                                <button onclick="navigateToPage('app-cart')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">09</span>
+                                    <span>Cart</span>
+                                </button>
+                                <button onclick="navigateToPage('app-payment')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">10</span>
+                                    <span>Payment</span>
+                                </button>
+                                <button onclick="navigateToPage('app-card-input')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">11</span>
+                                    <span>Card Input</span>
+                                </button>
+                                <button onclick="navigateToPage('app-processing')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">12</span>
+                                    <span>Processing</span>
+                                </button>
+                                <button onclick="navigateToPage('app-confirmation')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">13</span>
+                                    <span>Confirmation</span>
+                                </button>
+                                <button onclick="navigateToPage('app-tracking')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">14</span>
+                                    <span>Order Tracking</span>
+                                </button>
+                                <button onclick="navigateToPage('app-history')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">15</span>
+                                    <span>History</span>
+                                </button>
+                                <button onclick="navigateToPage('app-profile')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">16</span>
+                                    <span>Profile</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const sectionsContainer = document.getElementById('splashSections');
+            page.content.sections.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.style.cssText = 'background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 24px; margin-bottom: 16px;';
+                sectionDiv.innerHTML = `
+                    <h3 style="font-size: 18px; font-weight: 600; color: var(--or-luxe); margin-bottom: 16px;">${section.title}</h3>
+                    <div style="color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 14px;">${section.content}</div>
+                `;
+                sectionsContainer.appendChild(sectionDiv);
+            });
+            
+            renderSplashComments();
+        }
+        
+        let splashComments = [];
+        
+        // Project Comments System
+        let projectComments = {};
+        
+        function renderProjectComments(projectId) {
+            const container = document.getElementById(`projectCommentsContainer-${projectId}`);
+            if (!container) return;
+            
+            if (!projectComments[projectId] || projectComments[projectId].length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.3); font-size: 12px;">No comments yet</div>';
+                return;
+            }
+            
+            container.innerHTML = projectComments[projectId].slice().reverse().map(c => `
+                <div style="background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 12px; font-weight: 600; color: var(--or-luxe);">${c.author}</span>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.5);">${c.timestamp}</span>
+                    </div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5;">${c.text}</div>
+                </div>
+            `).join('');
+        }
+        
+        function postProjectComment(projectId) {
+            const input = document.getElementById(`projectCommentInput-${projectId}`);
+            const text = input.value.trim();
+            if (!text) return;
+            
+            if (!projectComments[projectId]) {
+                projectComments[projectId] = [];
+            }
+            
+            projectComments[projectId].push({
+                author: currentUser || 'Anonymous',
+                text: text,
+                timestamp: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+            });
+            
+            input.value = '';
+            renderProjectComments(projectId);
+            logAction('COMMENT', `Comment on ${projectId}: "${text.substring(0, 30)}..."`);
+        }
+        
+        function renderSplashComments() {
+            const container = document.getElementById('splashCommentsInline');
+            if (!container) return;
+            
+            if (splashComments.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.3); font-size: 12px;">No comments yet</div>';
+                return;
+            }
+            
+            container.innerHTML = splashComments.slice().reverse().map(c => `
+                <div style="background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 12px; font-weight: 600; color: var(--or-luxe);">${c.author}</span>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.5);">${c.timestamp}</span>
+                    </div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5;">${c.text}</div>
+                </div>
+            `).join('');
+        }
+        
+        function postSplashComment() {
+            const input = document.getElementById('splashCommentInlineInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            splashComments.push({
+                author: currentUser || 'Anonymous',
+                text: text,
+                timestamp: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+            });
+            
+            input.value = '';
+            renderSplashComments();
+            logAction('COMMENT', `Comment on Splash page: "${text.substring(0, 30)}..."`);
+        }
+
+        // NEW: Tabs-based Project Detail Page
+        function renderProjectDetail(page) {
+            const container = document.getElementById('pageContentView');
+            
+            container.innerHTML = `
+                <style>
+                    .project-detail-container { padding: 0; height: 100vh; display: flex; flex-direction: column; }
+                    .project-header { background: var(--graphite); border-bottom: 2px solid var(--or-glow); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; }
+                    .project-header-left { display: flex; align-items: center; gap: 20px; }
+                    .project-header-title { font-size: 28px; font-weight: 600; color: var(--or-luxe); margin: 0; }
+                    .project-badge { padding: 6px 16px; background: var(--or-fade); border: 1px solid var(--or-luxe); border-radius: 20px; font-size: 12px; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px; }
+                    
+                    .tabs-container { background: var(--noir-profond); border-bottom: 1px solid var(--or-glow); padding: 0 32px; display: flex; gap: 32px; }
+                    .tab-item { padding: 16px 0; color: rgba(255,255,255,0.6); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.3s; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+                    .tab-item:hover { color: var(--or-luxe); }
+                    .tab-item.active { color: var(--or-luxe); border-bottom-color: var(--or-luxe); }
+                    
+                    .tab-content { flex: 1; overflow: hidden; }
+                    .tab-panel { display: none; height: 100%; }
+                    .tab-panel.active { display: grid; grid-template-columns: 40% 60%; gap: 0; }
+                    
+                    .left-panel { padding: 32px; overflow-y: auto; background: var(--graphite); border-right: 1px solid var(--or-glow); }
+                    .right-panel { height: 100%; padding: 32px; overflow-y: auto; background: var(--noir-profond); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+                    
+                    .stat-card { background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+                    .stat-card h3 { font-size: 14px; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 16px 0; }
+                    .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(212,175,55,0.1); }
+                    .stat-row:last-child { border-bottom: none; }
+                    .stat-label { color: rgba(255,255,255,0.6); font-size: 13px; }
+                    .stat-value { color: var(--blanc-pur); font-weight: 600; font-size: 14px; }
+                    
+                    .progress-bar { width: 100%; height: 8px; background: rgba(59,130,246,0.2); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+                    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--or-luxe), #60A5FA); transition: width 0.3s; }
+                    
+                    .feature-list { list-style: none; padding: 0; margin: 0; }
+                    .feature-item { padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; font-size: 13px; }
+                    .feature-icon { font-size: 16px; }
+                    
+                    .preview-frame { width: 420px; height: 840px; background: #000; border-radius: 45px; border: 12px solid #1a1a1a; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.9); }
+                    .preview-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 160px; height: 30px; background: #000; border-radius: 0 0 18px 18px; z-index: 10; }
+                    .preview-iframe { width: 100%; height: 100%; border: none; background: #000; }
+                    .preview-controls { margin-top: 20px; display: flex; gap: 12px; }
+                    .preview-btn { padding: 10px 20px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 13px; }
+                    .preview-btn:hover { background: var(--or-fade); }
+                </style>
+                
+                <div class="project-detail-container">
+                    <!-- Header -->
+                    <div class="project-header">
+                        <div class="project-header-left">
+                            <button onclick="navigateToPage('dashboard')" style="padding: 10px 20px; background: transparent; border: 1px solid var(--or-glow); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 14px;">
+                                ← Back
+                            </button>
+                            <h1 class="project-header-title">${page.title}</h1>
+                            <span class="project-badge">${page.category}</span>
+                        </div>
+                        <button onclick="alert('Settings coming soon')" style="padding: 10px 20px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 14px;">
+                            <i class="icon-settings"></i> Settings
+                        </button>
+                    </div>
+                    
+                    <!-- Tabs -->
+                    <div class="tabs-container">
+                        <div class="tab-item active" onclick="switchTab('overview')">Overview</div>
+                        <div class="tab-item" onclick="switchTab('screens')">Screens</div>
+                        <div class="tab-item" onclick="switchTab('tasks')">Tasks</div>
+                        <div class="tab-item" onclick="switchTab('activity')">Activity</div>
+                        <div class="tab-item" onclick="switchTab('brand')">Brand Scanner</div>
+                        <div class="tab-item" onclick="switchTab('files')">All Files</div>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- OVERVIEW TAB -->
+                        <div id="tab-overview" class="tab-panel active">
+                            <div class="left-panel">
+                                <!-- Project Stats -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-stats"></i> Project Stats</h3>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Progress</span>
+                                        <span class="stat-value">${page.progress || 0}%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${page.progress || 0}%"></div>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Status</span>
+                                        <span class="stat-value">${page.status.toUpperCase()}</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Last Update</span>
+                                        <span class="stat-value">${page.date}</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Features -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-sparkle"></i> Features</h3>
+                                    <ul class="feature-list">
+                                        <li class="feature-item"><span class="feature-icon"><i class="icon-done"></i></span> AI-powered recommendations</li>
+                                        <li class="feature-item"><span class="feature-icon"><i class="icon-done"></i></span> Voice ordering integration</li>
+                                        <li class="feature-item"><span class="feature-icon"><i class="icon-dev"></i></span> Multi-language support (WIP)</li>
+                                        <li class="feature-item"><span class="feature-icon"><i class="icon-plan"></i></span> Dark mode theme</li>
+                                        <li class="feature-item"><span class="feature-icon"><i class="icon-plan"></i></span> Table splitting feature</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Recent Activity -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-bell"></i> Recent Activity</h3>
+                                    <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.8;">
+                                        <div style="padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,0.1);">• Commit pushed 2h ago</div>
+                                        <div style="padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,0.1);">• Task completed: Multi-language</div>
+                                        <div style="padding: 8px 0;">• Comment added by Adrien</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Comments Section -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-comment"></i> Comments</h3>
+                                    <div id="projectCommentsContainer-${page.id}" style="max-height: 300px; overflow-y: auto; margin-bottom: 16px;"></div>
+                                    <textarea id="projectCommentInput-${page.id}" placeholder="Add a comment..." rows="2" style="width: 100%; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--blanc-pur); font-family: var(--font-body); font-size: 13px; resize: none; margin-bottom: 8px;"></textarea>
+                                    <button onclick="postProjectComment('${page.id}')" style="width: 100%; padding: 10px; background: var(--or-luxe); color: var(--noir-profond); border: none; border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer;">Post Comment</button>
+                                </div>
+                            </div>
+                            
+                            <div class="right-panel">
+                                <h3 style="color: var(--or-luxe); text-transform: uppercase; letter-spacing: 2px; font-size: 13px; margin-bottom: 20px;"><i class="icon-mobile"></i> LIVE PREVIEW</h3>
+                                <div class="preview-frame">
+                                    <div class="preview-notch"></div>
+                                    <iframe class="preview-iframe" src="about:blank"></iframe>
+                                </div>
+                                <div class="preview-controls">
+                                    <button class="preview-btn" onclick="alert('Refresh preview')"><i class="icon-refresh"></i> Refresh</button>
+                                    <button class="preview-btn" onclick="alert('Load layout')"><i class="icon-mobile"></i> Load Layout</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- SCREENS TAB -->
+                        <div id="tab-screens" class="tab-panel">
+                            <div class="left-panel">
+                                <div class="stat-card">
+                                    <h3><i class="icon-mobile"></i> App Screens (16)</h3>
+                                    <p style="color: rgba(255,255,255,0.6); font-size: 13px;">Screen list coming soon...</p>
+                                </div>
+                            </div>
+                            <div class="right-panel">
+                                <p style="color: rgba(255,255,255,0.4);">Select a screen to preview</p>
+                            </div>
+                        </div>
+                        
+                        <!-- TASKS TAB -->
+                        <div id="tab-tasks" class="tab-panel">
+                            <div class="left-panel">
+                                <div class="stat-card">
+                                    <h3><i class="icon-done"></i> Tasks</h3>
+                                    <p style="color: rgba(255,255,255,0.6); font-size: 13px;">Kanban board coming soon...</p>
+                                </div>
+                            </div>
+                            <div class="right-panel">
+                                <p style="color: rgba(255,255,255,0.4);">Task management</p>
+                            </div>
+                        </div>
+                        
+                        <!-- ACTIVITY TAB -->
+                        <div id="tab-activity" class="tab-panel">
+                            <div class="left-panel">
+                                <div class="stat-card">
+                                    <h3><i class="icon-stats"></i> Activity Timeline</h3>
+                                    <p style="color: rgba(255,255,255,0.6); font-size: 13px;">Activity feed coming soon...</p>
+                                </div>
+                            </div>
+                            <div class="right-panel">
+                                <p style="color: rgba(255,255,255,0.4);">Activity history</p>
+                            </div>
+                        </div>
+                        
+                        <!-- BRAND SCANNER TAB -->
+                        <div id="tab-brand" class="tab-panel">
+                            <div class="left-panel">
+                                <!-- Color Palette -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-palette"></i> Color Palette</h3>
+                                    <div style="display: grid; gap: 12px;">
+                                        <!-- Primary Colors -->
+                                        <div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Primary</div>
+                                            <div style="display: flex; gap: 8px; align-items: center; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px;">
+                                                <div style="width: 50px; height: 50px; background: #3B82F6; border-radius: 8px; border: 2px solid rgba(255,255,255,0.2);"></div>
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600; margin-bottom: 4px;">Blue Primary</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">#3B82F6</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">rgb(59, 130, 246)</div>
+                                                </div>
+                                                <button onclick="copyToClipboard('#3B82F6')" style="padding: 6px 12px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--or-luxe); cursor: pointer; font-size: 11px;">Copy</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Dark Background -->
+                                        <div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Background</div>
+                                            <div style="display: flex; gap: 8px; align-items: center; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px;">
+                                                <div style="width: 50px; height: 50px; background: #0A0E1A; border-radius: 8px; border: 2px solid rgba(255,255,255,0.2);"></div>
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600; margin-bottom: 4px;">Dark Blue</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">#0A0E1A</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">rgb(10, 14, 26)</div>
+                                                </div>
+                                                <button onclick="copyToClipboard('#0A0E1A')" style="padding: 6px 12px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--or-luxe); cursor: pointer; font-size: 11px;">Copy</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Card Background -->
+                                        <div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Cards</div>
+                                            <div style="display: flex; gap: 8px; align-items: center; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px;">
+                                                <div style="width: 50px; height: 50px; background: #1E293B; border-radius: 8px; border: 2px solid rgba(255,255,255,0.2);"></div>
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600; margin-bottom: 4px;">Slate</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">#1E293B</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">rgb(30, 41, 59)</div>
+                                                </div>
+                                                <button onclick="copyToClipboard('#1E293B')" style="padding: 6px 12px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--or-luxe); cursor: pointer; font-size: 11px;">Copy</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- White Text -->
+                                        <div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Text</div>
+                                            <div style="display: flex; gap: 8px; align-items: center; padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px;">
+                                                <div style="width: 50px; height: 50px; background: #FFFFFF; border-radius: 8px; border: 2px solid rgba(255,255,255,0.2);"></div>
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600; margin-bottom: 4px;">White</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">#FFFFFF</div>
+                                                    <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">rgb(255, 255, 255)</div>
+                                                </div>
+                                                <button onclick="copyToClipboard('#FFFFFF')" style="padding: 6px 12px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--or-luxe); cursor: pointer; font-size: 11px;">Copy</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Typography -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-write"></i> Typography</h3>
+                                    <div style="display: grid; gap: 16px;">
+                                        <div style="padding: 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px;">
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Headings</div>
+                                            <div style="font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 600; color: var(--blanc-pur); margin-bottom: 8px;">Montserrat</div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace; margin-bottom: 4px;">font-family: 'Montserrat', sans-serif;</div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">font-weight: 300, 400, 600, 700</div>
+                                        </div>
+                                        
+                                        <div style="padding: 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px;">
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Body</div>
+                                            <div style="font-family: 'Inter', sans-serif; font-size: 16px; color: var(--blanc-pur); margin-bottom: 8px;">Inter Regular</div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace; margin-bottom: 4px;">font-family: 'Inter', sans-serif;</div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">font-weight: 300, 400, 500, 600</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Spacing System -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-ruler"></i> Spacing System</h3>
+                                    <div style="display: grid; gap: 8px;">
+                                        <div style="padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600;">XS</div>
+                                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">--space-xs</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <div style="width: 8px; height: 24px; background: var(--or-luxe); border-radius: 2px;"></div>
+                                                <span style="font-size: 13px; color: var(--or-luxe); font-weight: 600;">8px</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600;">SM</div>
+                                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">--space-sm</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <div style="width: 16px; height: 24px; background: var(--or-luxe); border-radius: 2px;"></div>
+                                                <span style="font-size: 13px; color: var(--or-luxe); font-weight: 600;">16px</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600;">MD</div>
+                                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">--space-md</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <div style="width: 24px; height: 24px; background: var(--or-luxe); border-radius: 2px;"></div>
+                                                <span style="font-size: 13px; color: var(--or-luxe); font-weight: 600;">24px</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600;">LG</div>
+                                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">--space-lg</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <div style="width: 40px; height: 24px; background: var(--or-luxe); border-radius: 2px;"></div>
+                                                <span style="font-size: 13px; color: var(--or-luxe); font-weight: 600;">40px</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 13px; color: var(--blanc-pur); font-weight: 600;">XL</div>
+                                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace;">--space-xl</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <div style="width: 64px; height: 24px; background: var(--or-luxe); border-radius: 2px;"></div>
+                                                <span style="font-size: 13px; color: var(--or-luxe); font-weight: 600;">64px</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="right-panel">
+                                <!-- CSS Export -->
+                                <div style="width: 100%; max-width: 600px;">
+                                    <h3 style="color: var(--or-luxe); text-transform: uppercase; letter-spacing: 2px; font-size: 13px; margin-bottom: 20px; text-align: center;"><i class="icon-clipboard"></i> CSS Export</h3>
+                                    
+                                    <div style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 24px; margin-bottom: 16px;">
+                                        <pre style="margin: 0; color: var(--blanc-pur); font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.8; overflow-x: auto;"><code>:root {
+  /* Colors */
+  --primary: #3B82F6;
+  --background: #0A0E1A;
+  --card: #1E293B;
+  --text: #FFFFFF;
+  --primary-fade: rgba(59, 130, 246, 0.1);
+  --primary-glow: rgba(59, 130, 246, 0.3);
+  
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  
+  /* Typography */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.2);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.3);
+}</code></pre>
+                                        <button onclick="copyToClipboard(document.querySelector('pre code').textContent)" style="width: 100%; margin-top: 16px; padding: 12px; background: var(--or-luxe); color: var(--noir-profond); border: none; border-radius: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer;"><i class="icon-clipboard"></i> Copy CSS Variables</button>
+                                    </div>
+                                    
+                                    <!-- Component Examples -->
+                                    <div style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 24px;">
+                                        <h4 style="color: var(--or-luxe); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;"><i class="icon-palette"></i> Components Preview</h4>
+                                        
+                                        <!-- Button -->
+                                        <div style="margin-bottom: 20px;">
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Button Primary</div>
+                                            <button style="padding: 12px 24px; background: #3B82F6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Click Me</button>
+                                        </div>
+                                        
+                                        <!-- Card -->
+                                        <div style="margin-bottom: 20px;">
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Card</div>
+                                            <div style="padding: 16px; background: #1E293B; border: 1px solid rgba(59,130,246,0.3); border-radius: 8px;">
+                                                <div style="font-size: 14px; font-weight: 600; color: white; margin-bottom: 8px;">Card Title</div>
+                                                <div style="font-size: 12px; color: rgba(255,255,255,0.7);">This is a card component with the brand styling applied.</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Badge -->
+                                        <div>
+                                            <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Badge</div>
+                                            <span style="padding: 6px 16px; background: rgba(59,130,246,0.1); border: 1px solid #3B82F6; border-radius: 20px; font-size: 12px; color: #3B82F6; text-transform: uppercase; letter-spacing: 1px;">Active</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ALL FILES TAB -->
+                        <div id="tab-files" class="tab-panel">
+                            <div class="left-panel">
+                                <!-- GitHub Repository -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-link"></i> GitHub Repository</h3>
+                                    <div style="margin-bottom: 16px;">
+                                        <label style="display: block; font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">Repository URL</label>
+                                        <input type="text" id="githubRepoUrl" placeholder="https://github.com/username/repo" style="width: 100%; padding: 10px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--blanc-pur); font-size: 13px;" value="https://github.com/adrien-debug/myapps-console">
+                                    </div>
+                                    <div style="margin-bottom: 16px;">
+                                        <label style="display: block; font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">Branch</label>
+                                        <input type="text" id="githubBranch" placeholder="main" style="width: 100%; padding: 10px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--blanc-pur); font-size: 13px;" value="main">
+                                    </div>
+                                    <button onclick="loadGitHubFiles()" style="width: 100%; padding: 12px; background: var(--or-luxe); color: var(--noir-profond); border: none; border-radius: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-bottom: 10px;"><i class="icon-refresh"></i> Load Files</button>
+                                    <button onclick="downloadRepoAsZip()" id="downloadZipBtn" disabled style="width: 100%; padding: 12px; background: var(--graphite); color: rgba(255,255,255,0.4); border: 1px solid var(--or-glow); border-radius: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: not-allowed;">Download ZIP</button>
+                                </div>
+                                
+                                <!-- Repository Stats -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-stats"></i> Repository Stats</h3>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Total Files</span>
+                                        <span class="stat-value" id="totalFiles">-</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Last Commit</span>
+                                        <span class="stat-value" id="lastCommit">-</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Status</span>
+                                        <span class="stat-value" id="repoStatus">Not connected</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Filters -->
+                                <div class="stat-card">
+                                    <h3><i class="icon-search"></i> Filters</h3>
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                                        <button onclick="filterFiles('all')" class="filter-btn active" data-filter="all" style="padding: 8px 12px; background: var(--or-fade); border: 1px solid var(--or-luxe); border-radius: 6px; color: var(--or-luxe); cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">All</button>
+                                        <button onclick="filterFiles('js')" class="filter-btn" data-filter="js" style="padding: 8px 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">JS</button>
+                                        <button onclick="filterFiles('css')" class="filter-btn" data-filter="css" style="padding: 8px 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">CSS</button>
+                                        <button onclick="filterFiles('html')" class="filter-btn" data-filter="html" style="padding: 8px 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">HTML</button>
+                                        <button onclick="filterFiles('json')" class="filter-btn" data-filter="json" style="padding: 8px 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">JSON</button>
+                                        <button onclick="filterFiles('md')" class="filter-btn" data-filter="md" style="padding: 8px 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">MD</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="right-panel">
+                                <h3 style="color: var(--or-luxe); text-transform: uppercase; letter-spacing: 2px; font-size: 13px; margin-bottom: 20px;"><i class="icon-folder"></i> FILE TREE</h3>
+                                <div id="fileTree" style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 24px; min-height: 600px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 13px;">
+                                    <div style="text-align: center; padding: 80px 40px; color: rgba(255,255,255,0.3);">
+                                        <div style="font-size: 72px; margin-bottom: 24px; opacity: 0.2;"><i class="icon-folder"></i></div>
+                                        <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.4);">No repository connected</div>
+                                        <div style="font-size: 13px; font-weight: 300; opacity: 0.6;">Enter a GitHub URL and click "Load Files"</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Render existing comments for this project
+            renderProjectComments(page.id);
+        }
+        
+        function switchTab(tabName) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show notification
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--or-luxe); color: var(--noir-profond); padding: 16px 24px; border-radius: 8px; font-weight: 600; z-index: 10000; animation: slideIn 0.3s ease;';
+                notification.textContent = '✓ Copied to clipboard!';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy: ' + err);
+            });
+        }
+        
+        // GitHub Files Integration
+        let currentFiles = [];
+        let currentFilter = 'all';
+
+function renderFileTree(files, owner, repo, branch) {
+            const container = document.getElementById('fileTree');
+            
+            if (files.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.4);">No files found</div>';
+                return;
+            }
+            
+            // Filter files
+            let filteredFiles = files;
+            if (currentFilter !== 'all') {
+                filteredFiles = files.filter(file => file.path.endsWith('.' + currentFilter));
+            }
+            
+            // Group by directory
+            const tree = {};
+            filteredFiles.forEach(file => {
+                const parts = file.path.split('/');
+                let current = tree;
+                
+                parts.forEach((part, index) => {
+                    if (index === parts.length - 1) {
+                        // File
+                        if (!current._files) current._files = [];
+                        current._files.push({
+                            name: part,
+                            path: file.path,
+                            size: file.size,
+                            url: `https://github.com/${owner}/${repo}/blob/${branch}/${file.path}`
+                        });
+                    } else {
+                        // Directory
+                        if (!current[part]) current[part] = {};
+                        current = current[part];
+                    }
+                });
+            });
+            
+            // Helper function to get file icon
+            function getFileIcon(filename) {
+                if (filename.endsWith('.js')) return '📜';
+                if (filename.endsWith('.css')) return '<i class="icon-palette"></i>';
+                if (filename.endsWith('.html')) return '🌐';
+                if (filename.endsWith('.json')) return '<i class="icon-clipboard"></i>';
+                if (filename.endsWith('.md')) return '📝';
+                if (filename.endsWith('.png') || filename.endsWith('.jpg') || filename.endsWith('.svg')) return '🖼️';
+                return '📄';
+            }
+            
+            // Helper function to format file size
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            }
+            
+            // Helper function to render tree node recursively
+            function renderTreeNode(node, depth) {
+                let html = '';
+                const indent = '&nbsp;&nbsp;&nbsp;&nbsp;'.repeat(depth);
+                
+                // Render directories
+                Object.keys(node).sort().forEach(key => {
+                    if (key !== '_files') {
+                        html += `<div style="color: var(--or-luxe); margin: 6px 0; padding: 8px 12px; background: rgba(59,130,246,0.05); border-left: 2px solid var(--or-luxe); border-radius: 4px; font-weight: 600;">
+                            ${indent}<i class="icon-folder"></i> ${key}
+                        </div>`;
+                        html += renderTreeNode(node[key], depth + 1);
+                    }
+                });
+                
+                // Render files
+                if (node._files) {
+                    node._files.sort((a, b) => a.name.localeCompare(b.name)).forEach(file => {
+                        const icon = getFileIcon(file.name);
+                        const size = formatFileSize(file.size);
+                        html += `<div style="color: rgba(255,255,255,0.8); margin: 3px 0; padding: 8px 12px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0;">
+                                ${indent}${icon} <a href="${file.url}" target="_blank" style="color: var(--blanc-pur); text-decoration: none;">${file.name}</a>
+                            </div>
+                            <span style="font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; margin-left: 12px;">${size}</span>
+                        </div>`;
+                    });
+                }
+                
+                return html;
+            }
+            
+            // Render tree
+            container.innerHTML = '<div style="font-family: \'Courier New\', monospace; font-size: 13px;">' + renderTreeNode(tree, 0) + '</div>';
+        }
+
+async function loadGitHubFiles() {
+    const repoUrl = document.getElementById('githubRepoUrl').value.trim();
+    let branch = document.getElementById('githubBranch').value.trim() || 'main';
+    if (!repoUrl) {
+        alert('Please enter a GitHub repository URL');
+        return;
+    }
+    
+    const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    if (!match) {
+        alert('Invalid GitHub URL format');
+        return;
+    }
+    
+    const owner = match[1];
+    const repo = match[2].replace('.git', '');
+    
+    document.getElementById('repoStatus').textContent = 'Loading...';
+    document.getElementById('repoStatus').style.color = 'var(--or-luxe)';
+    
+    try {
+        const headers = { 'Accept': 'application/vnd.github.v3+json' };
+        
+        let response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`, { headers });
+        
+        if (response.status === 409 || response.status === 404) {
+            branch = 'master';
+            response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`, { headers });
+        }
+        
+        if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
+        
+        const data = await response.json();
+        currentFiles = data.tree.filter(item => item.type === 'blob');
+        
+        document.getElementById('totalFiles').textContent = currentFiles.length;
+        document.getElementById('repoStatus').textContent = '✓ Connected';
+        document.getElementById('repoStatus').style.color = '#10B981';
+        document.getElementById('githubBranch').value = branch;
+        
+        const commitsResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits/${branch}`, { headers });
+        if (commitsResponse.ok) {
+            const commitData = await commitsResponse.json();
+            const date = new Date(commitData.commit.author.date);
+            document.getElementById('lastCommit').textContent = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+        
+        renderFileTree(currentFiles, owner, repo, branch);
+        
+        const downloadBtn = document.getElementById('downloadZipBtn');
+        downloadBtn.disabled = false;
+        downloadBtn.style.background = 'var(--or-luxe)';
+        downloadBtn.style.color = 'var(--noir-profond)';
+        downloadBtn.style.cursor = 'pointer';
+        downloadBtn.dataset.owner = owner;
+        downloadBtn.dataset.repo = repo;
+        downloadBtn.dataset.branch = branch;
+    } catch (error) {
+        console.error('Error loading GitHub files:', error);
+        document.getElementById('repoStatus').textContent = '✗ Error: ' + error.message;
+        document.getElementById('repoStatus').style.color = '#EF4444';
+        alert('Failed to load repository: ' + error.message);
+    }
+}
+
+        function filterFiles(type) {
+            currentFilter = type;
+            
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === type) {
+                    btn.style.background = 'var(--or-fade)';
+                    btn.style.borderColor = 'var(--or-luxe)';
+                    btn.style.color = 'var(--or-luxe)';
+                    btn.classList.add('active');
+                } else {
+                    btn.style.background = 'var(--noir-profond)';
+                    btn.style.borderColor = 'var(--or-glow)';
+                    btn.style.color = 'rgba(255,255,255,0.6)';
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Re-render with filter
+            if (currentFiles.length > 0) {
+                const repoUrl = document.getElementById('githubRepoUrl').value;
+                const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+                if (match) {
+                    const owner = match[1];
+                    const repo = match[2].replace('.git', '');
+                    const branch = document.getElementById('githubBranch').value || 'main';
+                    renderFileTree(currentFiles, owner, repo, branch);
+                }
+            }
+        }
+
+        function downloadRepoAsZip() {
+            const btn = document.getElementById('downloadZipBtn');
+            const owner = btn.dataset.owner;
+            const repo = btn.dataset.repo;
+            const branch = btn.dataset.branch;
+            
+            if (!owner || !repo || !branch) {
+                alert('Please load a repository first');
+                return;
+            }
+            
+            const zipUrl = `https://github.com/${owner}/${repo}/archive/refs/heads/${branch}.zip`;
+            const a = document.createElement('a');
+            a.href = zipUrl;
+            a.download = `${repo}-${branch}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            logAction('GITHUB', `Downloaded repository: ${owner}/${repo}`);
+        }
+
+        // Special Menu Page Detail with Preview
+        function renderMenuPageDetail(page) {
+            const container = document.getElementById('pageContentView');
+            container.innerHTML = `
+                <div style="padding: 24px; display: grid; grid-template-columns: 380px 520px 380px; gap: 24px; max-width: 1400px; margin: 0 auto; align-items: start;">
+                    
+                    <!-- LEFT: Content & Sections -->
+                    <div style="height: calc(100vh - 140px); display: flex; flex-direction: column;">
+                        <button onclick="navigateToPage('dashboard')" style="width: 100%; padding: 12px 24px; background: transparent; border: 1px solid var(--or-glow); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 14px; margin-bottom: 16px;">
+                            ← Back to Dashboard
+                        </button>
+                        
+                        <div style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+                            <h2 style="font-size: 20px; color: var(--or-luxe); margin: 0 0 16px 0;">${page.title}</h2>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,0.1);">
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase;">Status:</span>
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 12px;">${page.status.toUpperCase()}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,0.1);">
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase;">Date:</span>
+                                    <span style="color: var(--blanc-pur); font-size: 12px;">${page.date}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase;">Icon:</span>
+                                    <span style="color: var(--blanc-pur); font-size: 12px;">${page.icon}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="menuSections" style="flex: 1; overflow-y: auto;"></div>
+                        
+                        <!-- Comments Thread -->
+                        <div style="background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 16px; margin-top: 16px;">
+                            <h3 style="font-size: 14px; font-weight: 600; color: var(--or-luxe); margin: 0 0 12px 0;"><i class="icon-comment"></i> Comments</h3>
+                            <div id="menuCommentsInline" style="max-height: 200px; overflow-y: auto; margin-bottom: 12px;"></div>
+                            <textarea id="menuCommentInlineInput" placeholder="Add a comment..." rows="2" style="width: 100%; padding: 10px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 6px; color: var(--blanc-pur); font-family: var(--font-body); font-size: 13px; resize: none; margin-bottom: 8px;"></textarea>
+                            <button onclick="postMenuCommentInline()" style="width: 100%; padding: 10px; background: var(--or-luxe); color: var(--noir-profond); border: none; border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer;">Post</button>
+                        </div>
+                        
+                        <button onclick="toggleMenuComments()" style="width: 100%; padding: 12px 20px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 14px; margin-top: 16px; display: none;">
+                            <i class="icon-comment"></i> Comments
+                        </button>
+                    </div>
+                    
+                    <!-- CENTER: Preview -->
+                    <div style="height: calc(100vh - 140px);">
+                        <div style="height: 100%; background: var(--graphite); border: 2px solid var(--or-luxe); border-radius: 16px; box-shadow: 0 20px 60px rgba(212,175,55,0.3); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div style="padding: 12px 0 20px 0;">
+                                <h3 style="font-size: 13px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 2px; margin: 0; text-align: center;"><i class="icon-mobile"></i> LIVE PREVIEW</h3>
+                            </div>
+                            <div style="width: 400px; height: 800px; background: #000; border-radius: 45px; border: 12px solid #1a1a1a; box-shadow: 0 20px 60px rgba(0,0,0,0.9); position: relative; overflow: hidden;">
+                                <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 160px; height: 30px; background: #000; border-radius: 0 0 18px 18px; z-index: 10;"></div>
+                                <iframe id="menuPreviewIframe" src="about:blank" style="width: 100%; height: 100%; border: none; background: #000;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- RIGHT: Flow Navigation -->
+                    <div style="height: calc(100vh - 140px); display: flex; align-items: center;">
+                        <div style="width: 100%; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 20px; max-height: 100%; display: flex; flex-direction: column;">
+                            <h3 style="font-size: 14px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 16px 0; text-align: center;">APP FLOW</h3>
+                            <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; justify-content: center;">
+                                <button onclick="navigateToPage('app-splash')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">01</span>
+                                    <span>Splash Screen</span>
+                                </button>
+                                <button onclick="navigateToPage('app-onboarding')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">02</span>
+                                    <span>Onboarding</span>
+                                </button>
+                                <button onclick="navigateToPage('app-login')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">03</span>
+                                    <span>Login</span>
+                                </button>
+                                <button onclick="navigateToPage('app-dashboard')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">04</span>
+                                    <span>Dashboard</span>
+                                </button>
+                                <button onclick="navigateToPage('app-venue-select')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">05</span>
+                                    <span>Venue Selection</span>
+                                </button>
+                                <button onclick="navigateToPage('app-qr-scanner')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">06</span>
+                                    <span>QR Scanner</span>
+                                </button>
+                                <button onclick="navigateToPage('app-menu')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 2px solid var(--or-luxe); border-radius: 8px; color: var(--or-luxe); cursor: pointer; font-size: 13px; font-weight: 600; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 700; font-size: 11px;">07</span>
+                                    <span>Menu ← Current</span>
+                                </button>
+                                <button onclick="navigateToPage('app-product-detail')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">08</span>
+                                    <span>Product Detail</span>
+                                </button>
+                                <button onclick="navigateToPage('app-cart')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">09</span>
+                                    <span>Cart</span>
+                                </button>
+                                <button onclick="navigateToPage('app-payment')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">10</span>
+                                    <span>Payment</span>
+                                </button>
+                                <button onclick="navigateToPage('app-card-input')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">11</span>
+                                    <span>Card Input</span>
+                                </button>
+                                <button onclick="navigateToPage('app-processing')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">12</span>
+                                    <span>Processing</span>
+                                </button>
+                                <button onclick="navigateToPage('app-confirmation')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">13</span>
+                                    <span>Confirmation</span>
+                                </button>
+                                <button onclick="navigateToPage('app-tracking')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">14</span>
+                                    <span>Order Tracking</span>
+                                </button>
+                                <button onclick="navigateToPage('app-history')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">15</span>
+                                    <span>History</span>
+                                </button>
+                                <button onclick="navigateToPage('app-profile')" style="width: 100%; padding: 10px 16px; background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); cursor: pointer; font-size: 13px; text-align: left; display: flex; align-items: center; gap: 12px;">
+                                    <span style="color: var(--or-luxe); font-weight: 600; font-size: 11px;">16</span>
+                                    <span>Profile</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="menuCommentsPanel" style="display: none; position: fixed; left: 24px; top: 100px; width: 380px; height: calc(100vh - 140px); background: var(--graphite); border: 2px solid var(--or-luxe); border-radius: 16px; box-shadow: 0 20px 60px rgba(212,175,55,0.3); z-index: 999; flex-direction: column; overflow: hidden;">
+                    <div style="padding: 20px 24px; border-bottom: 1px solid var(--or-glow); background: var(--noir-profond); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 13px; font-weight: 600; color: var(--or-luxe); text-transform: uppercase; letter-spacing: 2px; margin: 0;">Comments</h3>
+                        <button onclick="toggleMenuComments()" style="width: 32px; height: 32px; background: transparent; border: 1px solid var(--or-glow); border-radius: 6px; color: var(--or-luxe); cursor: pointer; font-size: 16px;">✕</button>
+                    </div>
+                    <div id="menuCommentsBody" style="flex: 1; padding: 16px; overflow-y: auto;"></div>
+                    <div style="padding: 20px; border-top: 1px solid var(--or-glow); background: var(--noir-profond);">
+                        <textarea id="menuCommentInput" placeholder="Add a comment..." rows="3" style="width: 100%; padding: 12px 16px; background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 8px; color: var(--blanc-pur); font-family: var(--font-body); font-size: 14px; resize: vertical; margin-bottom: 12px;"></textarea>
+                        <button onclick="postMenuComment()" style="width: 100%; padding: 12px; background: var(--or-luxe); color: var(--noir-profond); border: none; border-radius: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">Post Comment</button>
+                    </div>
+                </div>
+            `;
+            
+            const sectionsContainer = document.getElementById('menuSections');
+            page.content.sections.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.style.cssText = 'background: var(--graphite); border: 1px solid var(--or-glow); border-radius: 12px; padding: 24px; margin-bottom: 16px;';
+                sectionDiv.innerHTML = `
+                    <h3 style="font-size: 18px; font-weight: 600; color: var(--or-luxe); margin-bottom: 16px;">${section.title}</h3>
+                    <div style="color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 14px;">${section.content}</div>
+                `;
+                sectionsContainer.appendChild(sectionDiv);
+            });
+            
+            renderMenuComments();
+        }
+        
+        let menuComments = [];
+        
+        // Migrate old comments to new system
+        function migrateOldComments() {
+            if (menuComments.length > 0) {
+                projectComments['project-ordergate'] = [...menuComments];
+            }
+            if (splashComments.length > 0) {
+                projectComments['ordergate-splash'] = [...splashComments];
+            }
+        }
+        
+        function toggleMenuComments() {
+            const panel = document.getElementById('menuCommentsPanel');
+            panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
+        }
+        
+        function postMenuComment() {
+            const input = document.getElementById('menuCommentInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            menuComments.push({
+                author: currentUser || 'Anonymous',
+                text: text,
+                timestamp: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+            });
+            
+            input.value = '';
+            renderMenuComments();
+            logAction('COMMENT', `Comment on Menu page: "${text.substring(0, 30)}..."`);
+        }
+        
+        function renderMenuComments() {
+            const container = document.getElementById('menuCommentsBody');
+            if (!container) return;
+            
+            if (menuComments.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.4);"><div style="font-size: 64px; margin-bottom: 16px; opacity: 0.3;"><i class="icon-comment"></i></div><div>No comments yet.<br>Be the first!</div></div>';
+                return;
+            }
+            
+            container.innerHTML = menuComments.slice().reverse().map(c => `
+                <div style="background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 10px; padding: 16px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 14px; font-weight: 600; color: var(--or-luxe);">${c.author}</span>
+                        <span style="font-size: 11px; color: rgba(255,255,255,0.5);">${c.timestamp}</span>
+                    </div>
+                    <div style="font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6;">${c.text}</div>
+                </div>
+            `).join('');
+            
+            renderMenuCommentsInline();
+        }
+        
+        function renderMenuCommentsInline() {
+            const container = document.getElementById('menuCommentsInline');
+            if (!container) return;
+            
+            if (menuComments.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.3); font-size: 12px;">No comments yet</div>';
+                return;
+            }
+            
+            container.innerHTML = menuComments.slice().reverse().map(c => `
+                <div style="background: var(--noir-profond); border: 1px solid var(--or-glow); border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 12px; font-weight: 600; color: var(--or-luxe);">${c.author}</span>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.5);">${c.timestamp}</span>
+                    </div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5;">${c.text}</div>
+                </div>
+            `).join('');
+        }
+        
+        function postMenuCommentInline() {
+            const input = document.getElementById('menuCommentInlineInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            menuComments.push({
+                author: currentUser || 'Anonymous',
+                text: text,
+                timestamp: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+            });
+            
+            input.value = '';
+            renderMenuCommentsInline();
+            logAction('COMMENT', `Comment on Menu page: "${text.substring(0, 30)}..."`);
+        }
+
+        function showNotification(type, title, message) {
+            // Remove existing notification
+            const existing = document.querySelector('.notification-box');
+            if (existing) existing.remove();
+
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'notification-box';
+            notification.innerHTML = `
+                <div class="notification-header">
+                    <div class="notification-icon ${type}">✓</div>
+                    <div class="notification-title">${title}</div>
+                </div>
+                <div class="notification-message">${message}</div>
+                <div class="notification-progress"></div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 3s
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.4s reverse';
+                setTimeout(() => notification.remove(), 400);
+            }, 3000);
+        }
+    </script>
+
+</body>
+<script>
+// Load GitHub Repositories
+
+function getLanguageColor(lang) {
+    const colors = {
+        'JavaScript': '#f1e05a',
+        'Python': '#3572A5',
+        'Java': '#b07219',
+        'TypeScript': '#2b7489',
+        'HTML': '#e34c26',
+        'CSS': '#563d7c',
+        'Ruby': '#701516',
+        'Go': '#00ADD8',
+        'Rust': '#dea584',
+        'Swift': '#ffac45'
+    };
+    return colors[lang] || '#8b949e';
+}
+</script>
+</html>
